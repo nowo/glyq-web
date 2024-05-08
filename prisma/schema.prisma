@@ -24,22 +24,21 @@ model Admin {
 
 // 公司介绍
 model Company {
-    id              Int     @id @default(autoincrement())
-    company         String  @db.VarChar(100) // 网站名称
-    address         String? @db.VarChar(200)
-    logo            String? @db.VarChar(255) // 网站logo
-    logo2           String? @db.VarChar(255) // 网站logo
-    qr_code         String? @db.VarChar(255) // 二维码
-    phone           String? @db.VarChar(20) // 联系电话
-    email           String? @db.VarChar(50) // 电子邮箱
-    // seo_title       String? @db.VarChar(255) // 标题
-    seo_keyword     String? @db.VarChar(100) // 关键词
-    seo_description String? @db.VarChar(200) // 描述
-    filing          String? @db.VarChar(100) // 备案号
-    copyright       String? @db.VarChar(200) // 版权
-
-    createdAt DateTime @default(now()) @map("created_at")
-    updatedAt DateTime @updatedAt @map("updated_at")
+    id              Int      @id @default(autoincrement())
+    company         String   @db.VarChar(100) // 网站名称
+    address         String?  @db.VarChar(200)
+    logo            String?  @db.VarChar(255) // 网站logo
+    logo2           String?  @db.VarChar(255) // 网站logo
+    qr_code         String?  @db.VarChar(255) // 二维码
+    phone           String?  @db.VarChar(20) // 联系电话
+    email           String?  @db.VarChar(50) // 电子邮箱
+    seo_title       String? @db.VarChar(255) // 标题
+    seo_keyword     String?  @db.VarChar(100) // 关键词
+    seo_description String?  @db.VarChar(200) // 描述
+    filing          String?  @db.VarChar(100) // 备案号
+    copyright       String?  @db.VarChar(200) // 版权
+    createdAt       DateTime @default(now()) @map("created_at")
+    updatedAt       DateTime @updatedAt @map("updated_at")
 
     @@map("company")
 }
@@ -83,6 +82,7 @@ model Menu {
     parentMenu Menu?  @relation("menu_p_id", fields: [p_id], references: [id])
     children   Menu[] @relation("menu_p_id")
 
+    // @@index([p_id], map: "menu_p_id_fkey")
     @@map("menu")
 }
 
@@ -178,14 +178,3 @@ model Other {
 
     @@map("other")
 }
-
-// model Category {
-//     id                 Int  @id @default(autoincrement())
-//     parent_category_id Int?
-//     [...more fields...]
-
-//     parentCategory Category?  @relation("categoriesTocategories_parent_category_id", fields: [parent_category_id], references: [id])
-//     childCategory  Category[] @relation("categoriesTocategories_parent_category_id")
-
-//     @@map("categories")
-// }

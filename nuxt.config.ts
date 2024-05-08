@@ -3,7 +3,6 @@
 export default defineNuxtConfig({
     modules: [
         '@nuxtjs/color-mode',
-        '@nuxt/devtools',
         '@unocss/nuxt',
         '@vueuse/nuxt',
         '@vite-pwa/nuxt',
@@ -11,12 +10,13 @@ export default defineNuxtConfig({
         '@nuxtjs/i18n',
         '@pinia/nuxt',
         'nuxt-swiper',
+        'nuxt-module-eslint-config',
     ],
     experimental: {
         // when using generate, payload js assets included in sw precache manifest
         // but missing on offline, disabling extraction it until fixed
         payloadExtraction: false,
-        inlineSSRStyles: false,
+        // inlineSSRStyles: false,
         typedPages: true,
     },
     css: [
@@ -158,5 +158,8 @@ export default defineNuxtConfig({
         //         en: false,
         //     },
         // },
+    },
+    devtools: {
+        enabled: true,
     },
 })
