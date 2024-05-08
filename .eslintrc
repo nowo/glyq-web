@@ -1,0 +1,12 @@
+{
+  "extends": [
+      "@antfu",
+      "@unocss",
+      "@cooj/eslint-config-vue"
+  ],
+  "rules": {
+      "n/prefer-global/process": [
+          "off"
+      ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+    "prettier.enable": false,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4,
+    "files.associations": {
+        "*.css": "postcss"
+    },
+    "cSpell.words": [
+        "alipay",
+        "antfu",
+        "Attributify",
+        "authjs",
+        "breakline",
+        "cooj",
+        "defu",
+        "iconify",
+        "nuxi",
+        "nuxt",
+        "nuxtjs",
+        "pinia",
+        "pnpm",
+        "pnpx",
+        "sidebase",
+        "stylelint",
+        "swiper",
+        "unjs",
+        "Uno",
+        "unocss",
+        "Vite",
+        "vueuse"
+    ],
+    "i18n-ally.localesPaths": [
+        "lang"
+    ],
+    "i18n-ally.sourceLanguage": "cn",
+    "i18n-ally.keystyle": "nested"
+}

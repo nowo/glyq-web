@@ -1,0 +1,191 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+// 管理员表
+model Admin {
+    id        Int      @id @default(autoincrement())
+    account   String?  @unique @db.VarChar(50) // 账号，唯一
+    username  String?  @db.VarChar(30)
+    password  String?  @db.VarChar(255)
+    avatar    String?  @db.VarChar(255)
+    status    Int?     @default(1)
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@map("admin")
+}
+
+// 公司介绍
+model Company {
+    id              Int     @id @default(autoincrement())
+    company         String  @db.VarChar(100) // 网站名称
+    address         String? @db.VarChar(200)
+    logo            String? @db.VarChar(255) // 网站logo
+    logo2           String? @db.VarChar(255) // 网站logo
+    qr_code         String? @db.VarChar(255) // 二维码
+    phone           String? @db.VarChar(20) // 联系电话
+    email           String? @db.VarChar(50) // 电子邮箱
+    // seo_title       String? @db.VarChar(255) // 标题
+    seo_keyword     String? @db.VarChar(100) // 关键词
+    seo_description String? @db.VarChar(200) // 描述
+    filing          String? @db.VarChar(100) // 备案号
+    copyright       String? @db.VarChar(200) // 版权
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@map("company")
+}
+
+// 系统信息
+model System {
+    id          Int     @id @default(autoincrement())
+    title       String? @db.VarChar(100) // 标题
+    // company         String  @db.VarChar(100) // 网站名称
+    address     String? @db.VarChar(200) // 网站地址
+    logo        String? @db.VarChar(255) // 网站logo
+    logo2       String? @db.VarChar(255) // 网站logo
+    qrCode      String? @map("qr_code") @db.VarChar(255) // 二维码
+    phone       String? @db.VarChar(20) // 联系电话
+    email       String? @db.VarChar(50) // 电子邮箱
+    keyword     String? @db.VarChar(100) // 关键词
+    description String? @db.VarChar(200) // 描述
+    filing      String? @db.VarChar(100) // 备案号
+    copyright   String? @db.VarChar(200) // 版权
+    icon        String? @db.VarChar(255) // 网站图标
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@map("system")
+}
+
+// 菜单表
+model Menu {
+    id       Int     @id @default(autoincrement())
+    p_id     Int?    @default(0) // 父级ID
+    icon     String? @db.VarChar(50) // 菜单图标
+    href     String? @db.VarChar(200) // 菜单链接
+    sort     Int?    @default(0) // 排序
+    title    String? @db.VarChar(100) // 菜单名称
+    title_en String? @db.VarChar(100) // 菜单名称(英文)
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    parentMenu Menu?  @relation("menu_p_id", fields: [p_id], references: [id])
+    children   Menu[] @relation("menu_p_id")
+
+    @@map("menu")
+}
+
+// 新闻表
+model News {
+    id Int @id @default(autoincrement())
+
+    title    String? @db.VarChar(100) // 标题名称
+    title_en String? @db.VarChar(100) // 标题名称(英文)
+
+    author      String? @db.VarChar(100) // 作者
+    describe    String? @db.VarChar(200) // 描述
+    describe_en String? @db.VarChar(200) // 描述英文
+
+    content    String? @db.Text // 内容
+    content_en String? @db.Text // 内容英文
+
+    img String? @db.VarChar(255) // 封面图片
+
+    sort   Int?     @default(0) // 排序
+    isHide Boolean? @default(false) // 是否首页显示
+    type   Int      @default(0) // 类型 1:普通新闻 2:客户案例 3:公司动态 4:公司公告
+    read   Int?     @default(0) // 阅读量
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@map("news")
+}
+
+// 产品表
+model Product {
+    id Int @id @default(autoincrement())
+
+    title    String? @db.VarChar(100) // 标题名称
+    title_en String? @db.VarChar(100) // 标题名称(英文)
+
+    author      String? @db.VarChar(100) // 作者
+    describe    String? @db.VarChar(200) // 描述
+    describe_en String? @db.VarChar(200) // 描述英文
+
+    content    String? @db.Text // 内容
+    content_en String? @db.Text // 内容英文
+
+    img String? @db.VarChar(255) // 封面图片
+
+    sort   Int?     @default(0) // 排序
+    isHide Boolean? @default(false) // 是否首页显示
+    type   Int      @default(0) // 类型 1:普通新闻 2:客户案例 3:公司动态 4:公司公告
+    read   Int?     @default(0) // 阅读量
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+    // @@comment("产品表")
+
+    @@map("product")
+}
+
+// 友情链接，轮播图
+model Link {
+    id Int @id @default(autoincrement())
+
+    title    String? @db.VarChar(100) // 标题名称
+    title_en String? @db.VarChar(100) // 标题名称(英文)
+    img      String? @db.VarChar(255) // 封面图片
+    href     String? @db.VarChar(255) // 链接地址
+
+    sort   Int?    @default(0) // 排序
+    type   Int?    @default(1) // 类型 1:轮播图 2:友情链接
+    isHide Boolean @default(false) // 是否隐藏
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@map("link")
+}
+
+// 其他内容介绍
+model Other {
+    id Int @id @default(autoincrement())
+
+    title    String? @db.VarChar(100) // 标题名称
+    title_en String? @db.VarChar(100) // 标题名称(英文)
+    img      String? @db.VarChar(255) // 封面图片
+
+    content    String? @db.Text // 内容
+    content_en String? @db.Text // 内容英文
+
+    type Int @unique @default(0) // 类型 0:其他内容 1:关于我们 2:联系我们 3:加入我们 4:常见问题
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@map("other")
+}
+
+// model Category {
+//     id                 Int  @id @default(autoincrement())
+//     parent_category_id Int?
+//     [...more fields...]
+
+//     parentCategory Category?  @relation("categoriesTocategories_parent_category_id", fields: [parent_category_id], references: [id])
+//     childCategory  Category[] @relation("categoriesTocategories_parent_category_id")
+
+//     @@map("categories")
+// }
