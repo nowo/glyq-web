@@ -1,3 +1,12 @@
+<script setup lang="ts">
+definePageMeta({
+    layout: 'home',
+})
+
+const { data } = await useCustomFetch<IIndexResponse>('/api/v1/system/info')
+console.log(data.value)
+</script>
+
 <template>
     <div class="min-h300px">
         <Suspense>
@@ -17,11 +26,5 @@
     </div> -->
     </div>
 </template>
-
-<script setup lang="ts">
-definePageMeta({
-    layout: 'home',
-})
-</script>
 
 <style  lang="scss" scoped></style>

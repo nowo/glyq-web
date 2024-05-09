@@ -1,17 +1,18 @@
+import type { Prisma } from '@prisma/client'
 import type { H3Event } from 'h3'
 import { ResponseMessage } from '~/config/message'
 
 /**
  * 获取菜单列表
  */
-export const getMenuList = async (event: H3Event) => {
+export const getMenuList = defineEventHandler(async (event) => {
     // 接口校验(是否登录)
     if (!event.context.user) return ResponseMessage.token
 
     // 获取参数
     const param = await getEventParams<MenuFindParam>(event)
 
-    const where: any = {
+    const where: Prisma.MenuWhereInput = {
         p_id: 0,
     }
 
@@ -55,15 +56,16 @@ export const getMenuList = async (event: H3Event) => {
 
     if (res1) {
         return { code: 200, data: { list: res1, total: res2 } }
-    } else {
+    }
+    else {
         return { code: 400, message: '查询失败' }
     }
-}
+})
 
 /**
  * 创建菜单
  */
-export const setMenuCreate = async (event: H3Event) => {
+export const setMenuCreate = defineEventHandler(async (event) => {
     // 接口校验(是否登录)
     if (!event.context.user) return ResponseMessage.token
 
@@ -79,15 +81,16 @@ export const setMenuCreate = async (event: H3Event) => {
 
     if (res) {
         return { code: 200, msg: '添加成功' }
-    } else {
+    }
+    else {
         return { msg: '网络错误' }
     }
-}
+})
 
 /**
  * 修改菜单
  */
-export const setMenuUpdate = async (event: H3Event) => {
+export const setMenuUpdate = defineEventHandler(async (event) => {
     // 接口校验(是否登录)
     if (!event.context.user) return ResponseMessage.token
 
@@ -108,15 +111,16 @@ export const setMenuUpdate = async (event: H3Event) => {
 
     if (res) {
         return { code: 200, msg: '修改成功' }
-    } else {
+    }
+    else {
         return { msg: '网络错误' }
     }
-}
+})
 
 /**
  * 删除菜单
  */
-export const setMenuDelete = async (event: H3Event) => {
+export const setMenuDelete = defineEventHandler(async (event) => {
     // 接口校验(是否登录)
     if (!event.context.user) return ResponseMessage.token
 
@@ -134,7 +138,8 @@ export const setMenuDelete = async (event: H3Event) => {
 
     if (res) {
         return { code: 200, msg: '删除成功' }
-    } else {
+    }
+    else {
         return { msg: '网络错误' }
     }
-}
+})

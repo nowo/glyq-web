@@ -4,7 +4,7 @@ import { ResponseMessage } from '~/config/message'
 /**
  * 获取关于我们、联系我们的内容
  */
-export const getInfo = async (event: H3Event) => {
+export const getOtherInfo = defineEventHandler(async (event) => {
     const url = getRequestURL(event)
     // /api/page**的接口，跳过登录校验
     if (!url.pathname.includes('/api/page')) {
@@ -23,12 +23,12 @@ export const getInfo = async (event: H3Event) => {
         },
     })
     return { code: 200, data: res }
-}
+})
 
 /**
  * 修改
  */
-export const update = async (event: H3Event) => {
+export const setOtherUpdate = defineEventHandler(async (event) => {
     // 接口校验(是否登录)
     if (!event.context.user) return ResponseMessage.token
 
@@ -63,7 +63,8 @@ export const update = async (event: H3Event) => {
 
     if (res) {
         return { code: 200, msg: '修改成功' }
-    } else {
+    }
+    else {
         return { msg: '网络错误' }
     }
-}
+})

@@ -1,10 +1,9 @@
-import type { H3Event } from 'h3'
 import { ResponseMessage } from '~/config/message'
 
 /**
  * 获取公司信息
  */
-export const getSystemInfo = async (event: H3Event) => {
+export const getSystemInfo = defineEventHandler(async (event) => {
     // // 接口校验
     // const authSign = await useVerifySign(event)
     // if (!authSign) return ResponseMessage.sign
@@ -30,15 +29,16 @@ export const getSystemInfo = async (event: H3Event) => {
                 copyright_en: res2.copyright,
             },
         }
-    } else {
+    }
+    else {
         return { msg: '获取数据有误' }
     }
-}
+})
 
 /**
  * 修改公司信息
  */
-export const setSystemInfo = async (event: H3Event) => {
+export const setSystemInfo = defineEventHandler(async (event) => {
     // // 接口校验
     // const authSign = await useVerifySign(event)
     // if (!authSign) return ResponseMessage.sign
@@ -91,7 +91,8 @@ export const setSystemInfo = async (event: H3Event) => {
             code: 200,
             msg: '设置成功',
         }
-    } else {
+    }
+    else {
         return { msg: '获取数据有误' }
     }
-}
+})

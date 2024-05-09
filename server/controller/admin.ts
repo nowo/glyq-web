@@ -1,3 +1,4 @@
+import type { Prisma } from '@prisma/client'
 import type { H3Event } from 'h3'
 import { ResponseMessage } from '~/config/message'
 import { setEncryptPassword } from '~/server/utils/request'
@@ -5,7 +6,7 @@ import { setEncryptPassword } from '~/server/utils/request'
 /**
  * 登录
  */
-export const setLoginSign = async (event: H3Event) => {
+export const setLoginSign = defineEventHandler(async (event) => {
     // 获取参数
     const param = await getEventParams<AdminLoginDataType>(event)
 
@@ -23,12 +24,23 @@ export const setLoginSign = async (event: H3Event) => {
 
     if (!user) {
         return { msg: '用户不存在' }
-    } else if (user.password === setEncryptPassword(param.password)) {
-        return { code: 200, data: user }
-    } else {
+    }
+    else if (user.password === setEncryptPassword(param.password)) {
+        const token = createToken(user)
+        return {
+            code: 200,
+            data: {
+                id: user.id,
+                // username: user!.username,
+                // account: user!.account,
+                token,
+            },
+        }
+    }
+    else {
         return { msg: '密码错误' }
     }
-}
+})
 
 /**
  * 退出登录
@@ -41,7 +53,7 @@ export const setLoginOut = async (event: H3Event) => {
 /**
  * 注册
  */
-export const setRegister = async (event: H3Event) => {
+export const setRegister = defineEventHandler(async (event) => {
     // TODO 注册用户
 
     interface LoginDataType {
@@ -78,15 +90,16 @@ export const setRegister = async (event: H3Event) => {
 
     if (!user) {
         return { msg: '用户不存在' }
-    } else {
+    }
+    else {
         return { code: 200, data: user }
     }
-}
+})
 
 /**
  * 修改密码
  */
-export const setPasswordUpdate = async (event: H3Event) => {
+export const setPasswordUpdate = defineEventHandler(async (event) => {
     // 接口校验(是否登录)
     if (!event.context.user) return ResponseMessage.token
 
@@ -119,33 +132,33 @@ export const setPasswordUpdate = async (event: H3Event) => {
 
     if (!user) return { msg: '网络错误' }
     return { code: 200, msg: '修改成功' }
-}
+})
 
 /**
  * 登录用户信息
  */
-export const getLoginInfo = async (event: H3Event) => {
+export const getLoginInfo = defineEventHandler(async (event) => {
     // 接口校验(是否登录)
     if (!event.context.user) return ResponseMessage.token
 
     const { password, createdAt, updatedAt, ...user } = event.context.user // eslint-disable-line unused-imports/no-unused-vars
 
     return { code: 200, data: user }
-}
+})
 
 // 、、、/////////////////////////
 
 /**
  * 获取用户列表
  */
-export const getAdminList = async (event: H3Event) => {
+export const getAdminList = defineEventHandler(async (event) => {
     // 接口校验(是否登录)
     if (!event.context.user) return ResponseMessage.token
 
     // 获取参数
     const param = await getEventParams<AdminFindParam>(event)
 
-    const where: any = {}
+    const where: Prisma.AdminWhereInput = {}
 
     if (param?.account) {
         where.account = {
@@ -198,15 +211,16 @@ export const getAdminList = async (event: H3Event) => {
     })
     if (res1) {
         return { code: 200, data: { list, total: res2 } }
-    } else {
+    }
+    else {
         return { code: 400, message: '查询失败' }
     }
-}
+})
 
 /**
  * 创建用户
  */
-export const setAdminCreate = async (event: H3Event) => {
+export const setAdminCreate = defineEventHandler(async (event) => {
     // 接口校验(是否登录)
     if (!event.context.user) return ResponseMessage.token
 
@@ -227,15 +241,16 @@ export const setAdminCreate = async (event: H3Event) => {
 
     if (user) {
         return { code: 200, msg: '添加成功' }
-    } else {
+    }
+    else {
         return { msg: '网络错误' }
     }
-}
+})
 
 /**
  * 修改用户
  */
-export const setAdminUpdate = async (event: H3Event) => {
+export const setAdminUpdate = defineEventHandler(async (event) => {
     // 接口校验(是否登录)
     if (!event.context.user) return ResponseMessage.token
 
@@ -257,15 +272,16 @@ export const setAdminUpdate = async (event: H3Event) => {
 
     if (user) {
         return { code: 200, msg: '修改成功' }
-    } else {
+    }
+    else {
         return { msg: '网络错误' }
     }
-}
+})
 
 /**
  * 删除用户
  */
-export const setAdminDelete = async (event: H3Event) => {
+export const setAdminDelete = defineEventHandler(async (event) => {
     // 接口校验(是否登录)
     if (!event.context.user) return ResponseMessage.token
 
@@ -282,7 +298,8 @@ export const setAdminDelete = async (event: H3Event) => {
 
     if (user) {
         return { code: 200, msg: '删除成功' }
-    } else {
+    }
+    else {
         return { msg: '网络错误' }
     }
-}
+})

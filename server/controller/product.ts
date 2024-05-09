@@ -1,3 +1,4 @@
+import type { Prisma } from '@prisma/client'
 import type { H3Event } from 'h3'
 import { ResponseMessage } from '~/config/message'
 
@@ -12,7 +13,7 @@ type FindListQueryParam = {
  * @param event
  * @returns
  */
-export const getList = async (event: H3Event) => {
+export const getProductList = defineEventHandler(async (event) => {
     const url = getRequestURL(event)
     // /api/page**的接口，跳过登录校验
     if (!url.pathname.includes('/api/page')) {
@@ -24,7 +25,7 @@ export const getList = async (event: H3Event) => {
     const param = await getEventParams<FindListQueryParam>(event)
 
     // if (!param?.type) return { msg: '请传递类型' }
-    const where: any = {
+    const where: Prisma.ProductWhereInput = {
         type: param?.type,
         title: {
             contains: param?.title, // 包含
@@ -65,17 +66,18 @@ export const getList = async (event: H3Event) => {
 
     if (res1) {
         return { code: 200, data: { list: res1, total: res2 } }
-    } else {
+    }
+    else {
         return { code: 400, message: '查询失败' }
     }
-}
+})
 
 /**
  * 新增
  * @param event
  * @returns
  */
-export const insert = async (event: H3Event) => {
+export const setProductCreate = defineEventHandler(async (event) => {
     // 接口校验(是否登录)
     if (!event.context.user) return ResponseMessage.token
 
@@ -90,17 +92,18 @@ export const insert = async (event: H3Event) => {
 
     if (res) {
         return { code: 200, msg: '添加成功' }
-    } else {
+    }
+    else {
         return { msg: '网络错误' }
     }
-}
+})
 
 /**
  * 修改
  * @param event
  * @returns
  */
-export const update = async (event: H3Event) => {
+export const setProductUpdate = defineEventHandler(async (event) => {
     // 接口校验(是否登录)
     if (!event.context.user) return ResponseMessage.token
 
@@ -120,17 +123,18 @@ export const update = async (event: H3Event) => {
 
     if (res) {
         return { code: 200, msg: '修改成功' }
-    } else {
+    }
+    else {
         return { msg: '网络错误' }
     }
-}
+})
 
 /**
  * 删除
  * @param event
  * @returns
  */
-export const del = async (event: H3Event) => {
+export const setProductDelete = defineEventHandler(async (event) => {
     // 接口校验(是否登录)
     if (!event.context.user) return ResponseMessage.token
 
@@ -148,7 +152,8 @@ export const del = async (event: H3Event) => {
 
     if (res) {
         return { code: 200, msg: '删除成功' }
-    } else {
+    }
+    else {
         return { msg: '网络错误' }
     }
-}
+})

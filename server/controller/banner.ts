@@ -1,3 +1,4 @@
+import type { Prisma } from '@prisma/client'
 import type { H3Event } from 'h3'
 import { ResponseMessage } from '~/config/message'
 
@@ -8,7 +9,7 @@ import { ResponseMessage } from '~/config/message'
  * @param event
  * @returns
  */
-export const getList = async (event: H3Event) => {
+export const getBannerList = defineEventHandler(async (event) => {
     // 接口校验(是否登录)
     if (!event.context.user) return ResponseMessage.token
 
@@ -17,7 +18,7 @@ export const getList = async (event: H3Event) => {
 
     if (!param?.type) return { msg: '请传递类型' }
 
-    const where: any = {
+    const where: Prisma.LinkWhereInput = {
         type: param.type,
     }
 
@@ -60,17 +61,18 @@ export const getList = async (event: H3Event) => {
     })
     if (res1) {
         return { code: 200, data: { list, total: res2 } }
-    } else {
+    }
+    else {
         return { code: 400, message: '查询失败' }
     }
-}
+})
 
 /**
  * 新增
  * @param event
  * @returns
  */
-export const insert = async (event: H3Event) => {
+export const setBannerCreate = defineEventHandler(async (event) => {
     // 接口校验(是否登录)
     if (!event.context.user) return ResponseMessage.token
 
@@ -85,17 +87,18 @@ export const insert = async (event: H3Event) => {
 
     if (res) {
         return { code: 200, msg: '添加成功' }
-    } else {
+    }
+    else {
         return { msg: '网络错误' }
     }
-}
+})
 
 /**
  * 修改
  * @param event
  * @returns
  */
-export const update = async (event: H3Event) => {
+export const setBannerUpdate = defineEventHandler(async (event) => {
     // 接口校验(是否登录)
     if (!event.context.user) return ResponseMessage.token
 
@@ -115,17 +118,18 @@ export const update = async (event: H3Event) => {
 
     if (res) {
         return { code: 200, msg: '修改成功' }
-    } else {
+    }
+    else {
         return { msg: '网络错误' }
     }
-}
+})
 
 /**
  * 删除
  * @param event
  * @returns
  */
-export const del = async (event: H3Event) => {
+export const setBannerDelete = defineEventHandler(async (event) => {
     // 接口校验(是否登录)
     if (!event.context.user) return ResponseMessage.token
 
@@ -143,7 +147,8 @@ export const del = async (event: H3Event) => {
 
     if (res) {
         return { code: 200, msg: '删除成功' }
-    } else {
+    }
+    else {
         return { msg: '网络错误' }
     }
-}
+})

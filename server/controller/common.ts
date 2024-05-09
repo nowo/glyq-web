@@ -1,7 +1,7 @@
 import { extname } from 'node:path'
 import type { H3Event, MultiPartData } from 'h3'
 
-export const uploadFile = async (event: H3Event) => {
+export const uploadFile = defineEventHandler(async (event) => {
     const dat = await getEventParams<{ file: MultiPartData }>(event)
 
     if (dat?.file && dat.file.filename) {
@@ -10,7 +10,8 @@ export const uploadFile = async (event: H3Event) => {
         const url = await createFile(ext, dat.file.data, true)
         if (!url) return { msg: '上传失败' }
         return { code: 200, data: url }
-    } else {
+    }
+    else {
         return { msg: '文件格式错误' }
     }
-}
+})

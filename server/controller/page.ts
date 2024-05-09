@@ -1,3 +1,4 @@
+import type { Prisma } from '@prisma/client'
 import type { H3Event } from 'h3'
 
 // import { ResponseMessage } from '~/config/message'
@@ -5,7 +6,7 @@ import type { H3Event } from 'h3'
 /**
  * 获取系统信息
  */
-export const getSystemInfo = async (event: H3Event) => {
+export const getSystemInfo = defineEventHandler(async (event) => {
     // 接口校验
     // if (!event.context.user) return ResponseMessage.token
 
@@ -21,22 +22,23 @@ export const getSystemInfo = async (event: H3Event) => {
             filing_en: res2.filing,
             copyright_en: res2.copyright,
         }
-    } else {
+    }
+    else {
         return null
     }
-}
+})
 
 /**
  * 获取菜单
  */
-export const getMenuList = async (event: H3Event) => {
+export const getMenuList = defineEventHandler(async (event) => {
     // 接口校验
     // if (!event.context.user) return ResponseMessage.token
 
     // const lang = useCookie<'cn' | 'en'>('i18n_redirected')
     // console.log('🚀 ~ file: page.ts:38 ~ getMenuList ~ lang:', lang)
 
-    const where: any = {
+    const where: Prisma.MenuWhereInput = {
         p_id: 0,
         // isHide: false,
     }
@@ -56,12 +58,12 @@ export const getMenuList = async (event: H3Event) => {
     })
 
     return res
-}
+})
 
 /**
  * 获取轮播图
  */
-export const getBannerList = async (event: H3Event) => {
+export const getBannerList = defineEventHandler(async (event) => {
     // 接口校验
     // if (!event.context.user) return ResponseMessage.token
 
@@ -71,7 +73,7 @@ export const getBannerList = async (event: H3Event) => {
     // 获取参数
     const param = await getEventParams<{ type: number } & ListPage>(event)
 
-    const where: any = {
+    const where: Prisma.LinkWhereInput = {
         type: param?.type ? Number(param?.type) : 1,
         isHide: false,
     }
@@ -91,12 +93,12 @@ export const getBannerList = async (event: H3Event) => {
     })
 
     return res
-}
+})
 
 /**
  * 获取关于我们、联系我们的内容
  */
-export const getAboutInfo = async (event: H3Event) => {
+export const getAboutInfo = defineEventHandler(async (event) => {
     // 获取参数
     const param = await getEventParams<{ type: number }>(event)
 
@@ -108,12 +110,12 @@ export const getAboutInfo = async (event: H3Event) => {
         },
     })
     return res
-}
+})
 
 /**
  * 获取商品
  */
-export const getGoodsList = async (event: H3Event) => {
+export const getGoodsList = defineEventHandler(async (event) => {
     // TODO: 商品
     // 获取参数
     const param = await getEventParams<{ type: number }>(event)
@@ -126,14 +128,14 @@ export const getGoodsList = async (event: H3Event) => {
         },
     })
     return res
-}
+})
 
 /**
  * 获取新闻详情
  */
-export const getNewsInfo = async (event: H3Event) => {
+export const getNewsInfo = defineEventHandler(async (event) => {
     // 获取参数
-    const param = await getEventParams<{ id: number; type: number }>(event)
+    const param = await getEventParams<{ id: number, type: number }>(event)
 
     if (!param?.id) return null
     if (!param?.type) return null
@@ -191,12 +193,12 @@ export const getNewsInfo = async (event: H3Event) => {
         prevNews: res1[0],
         nextNews: res2[0],
     }
-}
+})
 
 /**
  * 获取商品详情
  */
-export const getProductInfo = async (event: H3Event) => {
+export const getProductInfo = defineEventHandler(async (event) => {
     // 获取参数
     const param = await getEventParams<{ id: number }>(event)
 
@@ -255,12 +257,12 @@ export const getProductInfo = async (event: H3Event) => {
         prevNews: res1[0],
         nextNews: res2[0],
     }
-}
+})
 
 /**
  * 获取首页信息
  */
-export const getIndexData = async (event: H3Event) => {
+export const getIndexData = defineEventHandler(async (event) => {
     // 获取参数
     // const param = await getEventParams<{ id: number }>(event)
 
@@ -340,4 +342,4 @@ export const getIndexData = async (event: H3Event) => {
         newsList: res4.filter(item => item.type === 1).slice(0, 6),
         mienList: res4.filter(item => item.type === 3).slice(0, 4),
     }
-}
+})
