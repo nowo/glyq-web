@@ -1,17 +1,3 @@
-<template>
-    <div class="banner">
-        <Swiper :modules="[SwiperAutoplay, SwiperEffectCreative, SwiperNavigation, SwiperPagination]" :slides-per-view="1"
-            :loop="true" :autoplay="{ delay: 8000, disableOnInteraction: true }" effect="creative" :creative-effect="effect"
-            navigation :pagination="{ clickable: true }">
-            <SwiperSlide v-for="(item, idx) in banner" :key="idx" class="w100%">
-                <NuxtLink :to="item.href" class="banner-link">
-                    <img :src="item.img" :alt="item.title">
-                </NuxtLink>
-            </SwiperSlide>
-        </Swiper>
-    </div>
-</template>
-
 <script lang="ts" setup>
 // :creative-effect="{
 //             prev: {
@@ -32,6 +18,33 @@ const effect = {
 const { data: banner } = await useCustomFetch<ISlideListResponse[]>('/api/page/get_banner')
 // console.log(banner)
 </script>
+
+<template>
+    <div class="banner">
+        <Swiper :modules="[SwiperAutoplay, SwiperEffectCreative, SwiperNavigation, SwiperPagination]"
+                :slides-per-view="1"
+                :loop="true"
+                :autoplay="{ delay: 8000, disableOnInteraction: true }"
+                effect="creative"
+                :creative-effect="effect"
+                navigation
+                :pagination="{ clickable: true }"
+        >
+            <SwiperSlide v-for="(item, idx) in banner"
+                         :key="idx"
+                         class="w100%"
+            >
+                <NuxtLink :to="item.href"
+                          class="banner-link"
+                >
+                    <img :src="item.img"
+                         :alt="item.title"
+                    >
+                </NuxtLink>
+            </SwiperSlide>
+        </Swiper>
+    </div>
+</template>
 
 <style lang="scss" scoped>
 .banner {

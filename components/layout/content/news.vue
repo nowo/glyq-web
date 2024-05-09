@@ -1,44 +1,3 @@
-<template>
-    <div>
-        <ClientOnly>
-            <ul v-if="props.type === 1" class="new-ul min-h250px">
-                <li v-for="item in defData.listData" :key="item.id" class="flex">
-                    <NuxtLinkLocale :to="setLinkPath(item)" class="link">
-                        <co-image :src="item.img" class="h100% w140px block!" />
-                    </NuxtLinkLocale>
-                    <div class="flex-1 pl20px">
-                        <h3 class="text-truncate pb5px font-bold">
-                            <NuxtLinkLocale :to="setLinkPath(item)" class="link-a">
-                                {{ $lang(item.title, item.title_en) }}
-                            </NuxtLinkLocale>
-                        </h3>
-                        <div class="intro text-14px">
-                            {{ $lang(item.describe, item.describe_en) }}
-                        </div>
-                    </div>
-                </li>
-            </ul>
-
-            <ul v-else class="news-grid">
-                <li v-for="item in defData.listData" :key="item.id">
-                    <NuxtLinkLocale :to="setLinkPath(item)" class="link">
-                        <co-image :src="item.img" class="w100% b-1px b-#eee b-solid pb75% block!" />
-                    </NuxtLinkLocale>
-                    <h3 class="line-clamp-1 mt5px text-center font-bold">
-                        <NuxtLinkLocale :to="setLinkPath(item)" class="link-a">
-                            {{ $lang(item.title, item.title_en) }}
-                        </NuxtLinkLocale>
-                    </h3>
-                </li>
-            </ul>
-            <el-pagination v-if="defData.pagination.total" v-model:current-page="defData.pagination.page"
-                v-model:page-size="defData.pagination.page_size" small :page-sizes="defData.pagination.page_sizes"
-                :total="defData.pagination.total" :pager-count="5" background layout="total, prev, pager, next, jumper"
-                class="mt15px justify-center" @size-change="onHandleSizeChange" @current-change="onHandleCurrentChange" />
-        </ClientOnly>
-    </div>
-</template>
-
 <script lang="ts" setup>
 const props = defineProps<{
     type: 1 | 2 | 3 | 4 // 类型 1:普通新闻 2:客户案例 3:公司动态 4:公司公告
@@ -60,7 +19,7 @@ const defData = reactive({
 
 // 初始化数据
 const initTableData = async () => {
-    const { data, error } = await useCustomFetch<{ code: number; data: INewsResponseList; msg: string }>('/api/page/news', {
+    const { data, error } = await useCustomFetch<{ code: number, data: INewsResponseList, msg: string }>('/api/page/news', {
         method: 'post',
         body: {
             type: props.type,
@@ -78,7 +37,8 @@ const initTableData = async () => {
     if (data.value?.code === 200) {
         defData.listData = data.value.data.list
         defData.pagination.total = data.value.data.total
-    } else {
+    }
+    else {
         ElMessage.error(data.value?.msg)
     }
 }
@@ -103,6 +63,77 @@ const onHandleSizeChange = async (val: number) => {
 
 initTableData()
 </script>
+
+<template>
+    <div>
+        <ClientOnly>
+            <ul v-if="props.type === 1"
+                class="new-ul min-h250px"
+            >
+                <li v-for="item in defData.listData"
+                    :key="item.id"
+                    class="flex"
+                >
+                    <NuxtLinkLocale :to="setLinkPath(item)"
+                                    class="link"
+                    >
+                        <co-image :src="item.img"
+                                  class="h100% w140px block!"
+                        />
+                    </NuxtLinkLocale>
+                    <div class="flex-1 pl20px">
+                        <h3 class="text-truncate pb5px font-bold">
+                            <NuxtLinkLocale :to="setLinkPath(item)"
+                                            class="link-a"
+                            >
+                                {{ $lang(item.title, item.title_en) }}
+                            </NuxtLinkLocale>
+                        </h3>
+                        <div class="intro text-14px">
+                            {{ $lang(item.describe, item.describe_en) }}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <ul v-else
+                class="news-grid"
+            >
+                <li v-for="item in defData.listData"
+                    :key="item.id"
+                >
+                    <NuxtLinkLocale :to="setLinkPath(item)"
+                                    class="link"
+                    >
+                        <co-image :src="item.img"
+                                  class="w100% b-1px b-#eee b-solid pb75% block!"
+                        />
+                    </NuxtLinkLocale>
+                    <h3 class="line-clamp-1 mt5px text-center font-bold">
+                        <NuxtLinkLocale :to="setLinkPath(item)"
+                                        class="link-a"
+                        >
+                            {{ $lang(item.title, item.title_en) }}
+                        </NuxtLinkLocale>
+                    </h3>
+                </li>
+            </ul>
+            <el-pagination v-if="defData.pagination.total"
+                           v-model:current-page="defData.pagination.page"
+                           v-model:page-size="defData.pagination.page_size"
+                           small
+                           :page-sizes="defData.pagination.page_sizes"
+                           :total="defData.pagination.total"
+                           :pager-count="5"
+                           background
+                           layout="total, prev, pager, next, jumper"
+                           class="mt15px justify-center"
+                           @size-change="onHandleSizeChange"
+                           @current-change="onHandleCurrentChange"
+            />
+        </ClientOnly>
+    </div>
+</template>
 
 <style lang="scss" scoped>
 .new-ul {

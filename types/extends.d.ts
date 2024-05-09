@@ -1,9 +1,8 @@
 /**
- * 该文件主要用作对某些库数据类型的扩展 
+ * 该文件主要用作对某些库数据类型的扩展
  */
 
-import { PrismaClient } from '@prisma/client'
-
+import type { PrismaClient } from '@prisma/client'
 
 declare module 'h3' {
     interface H3EventContext {
@@ -12,13 +11,13 @@ declare module 'h3' {
     }
 }
 
-declare module "@next-auth/core" {
+declare module '@next-auth/core' {
     interface Session {
-        user?: User,
+        user?: User
         token?: string
     }
     interface User {
-        id: number;
+        id: number
         username: string
     }
 }

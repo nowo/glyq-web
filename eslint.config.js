@@ -41,6 +41,9 @@ export default antfu(
                     multiline: 'beside',
                 },
             ],
+            'ts/no-explicit-any': 'warn',
+            'vue/multi-word-component-names': 'off',
+            'vue/max-attributes-per-line': 'off',
         },
     },
 )

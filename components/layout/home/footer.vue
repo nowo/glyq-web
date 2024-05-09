@@ -1,11 +1,37 @@
+<script lang="ts" setup>
+const { $lang } = useNuxtApp()
+const systemInfo = await useSystemState().getSystemInfo()
+
+const qqLink = computed(() => {
+    if (systemInfo.value?.qq) {
+        return `http://wpa.qq.com/msgrd?v=3&uin=${systemInfo.value.qq}&site=qq&menu=yes`
+    }
+    else {
+        return 'javascript:;'
+    }
+})
+// console.log(dat)
+
+const { data: links } = await useCustomFetch<ISlideListResponse[]>('/api/page/get_links', {
+    params: {
+        type: 2,
+    },
+})
+</script>
+
 <template>
     <section class="footer bg-#333">
         <div class="py20px text-16px">
             <div class="container">
                 <div class="mt10px flex justify-between">
                     <div class="flex">
-                        <NuxtLinkLocale to="/" class="mr20px">
-                            <img :src="systemInfo?.logo2" class="max-h150px max-w350px" alt="">
+                        <NuxtLinkLocale to="/"
+                                        class="mr20px"
+                        >
+                            <img :src="systemInfo?.logo2"
+                                 class="max-h150px max-w350px"
+                                 alt=""
+                            >
                         </NuxtLinkLocale>
                         <div class="lh-28px">
                             <p>{{ $lang('联系电话', 'Telephone') }}：{{ systemInfo?.phone }}</p>
@@ -24,13 +50,20 @@
                         </a>
                     </div> -->
                     <div class="text-center">
-                        <co-image :src="systemInfo?.qrCode" class="h90px w90px" />
+                        <co-image :src="systemInfo?.qrCode"
+                                  class="h90px w90px"
+                        />
                         <p>关注我们</p>
                     </div>
                 </div>
                 <div class="pt15px text-13px">
                     {{ $lang('友情链接', 'Links') }}：
-                    <a v-for="item in links" :key="item.id" :href="item.href" target="_blank" class="mr5px">
+                    <a v-for="item in links"
+                       :key="item.id"
+                       :href="item.href"
+                       target="_blank"
+                       class="mr5px"
+                    >
                         {{ $lang(item.title, item.title_en) }}
                     </a>
                 </div>
@@ -39,32 +72,14 @@
         <div class="footer-bot b-t b-t-#222 b-t-solid py15px">
             <div class="c-#bbb container">
                 <span class="mr8px">{{ $lang(systemInfo?.copyright, systemInfo?.copyright_en) }}</span>
-                <a href="https://beian.miit.gov.cn/" target="_blank">{{ $lang(systemInfo?.filing, systemInfo?.filing_en)
+                <a href="https://beian.miit.gov.cn/"
+                   target="_blank"
+                >{{ $lang(systemInfo?.filing, systemInfo?.filing_en)
                 }}</a>
             </div>
         </div>
     </section>
 </template>
-
-<script lang="ts" setup>
-const { $lang } = useNuxtApp()
-const systemInfo = await useSystemState().getSystemInfo()
-
-const qqLink = computed(() => {
-    if (systemInfo.value?.qq) {
-        return `http://wpa.qq.com/msgrd?v=3&uin=${systemInfo.value.qq}&site=qq&menu=yes`
-    } else {
-        return 'javascript:;'
-    }
-})
-// console.log(dat)
-
-const { data: links } = await useCustomFetch<ISlideListResponse[]>('/api/page/get_links', {
-    params: {
-        type: 2,
-    },
-})
-</script>
 
 <style lang="scss" scoped>
 .footer {

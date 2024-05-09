@@ -1,10 +1,9 @@
-import { createRouter, defineEventHandler, useBase } from 'h3'
+import { createRouter, useBase } from 'h3'
 import { uploadFile } from '~/server/controller/common'
 import { getSystemInfo, setSystemInfo } from '~/server/controller/system'
 import { getBannerList, setBannerCreate, setBannerDelete, setBannerUpdate } from '~/server/controller/banner'
 
 import { getAdminList, getLoginInfo, setAdminCreate, setAdminDelete, setAdminUpdate, setLoginSign, setPasswordUpdate, setRegister } from '~/server/controller/admin'
-import { createToken } from '~/server/utils/token'
 import { getMenuList, setMenuCreate, setMenuDelete, setMenuUpdate } from '~/server/controller/menu'
 import { getProductList, setProductCreate, setProductDelete, setProductUpdate } from '~/server/controller/product'
 import { getNewsList, setNewsCreate, setNewsDelete, setNewsUpdate } from '~/server/controller/news'

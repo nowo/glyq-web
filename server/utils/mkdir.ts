@@ -20,7 +20,8 @@ export const getStat = (path: fs.PathLike): Promise<fs.Stats | false> => {
         fs.stat(path, (err, stats) => {
             if (err) {
                 resolve(false)
-            } else {
+            }
+            else {
                 resolve(stats)
             }
         })
@@ -36,7 +37,8 @@ export const mkdir = (dir: fs.PathLike): Promise<boolean> => {
         fs.mkdir(dir, (err) => {
             if (err) {
                 resolve(false)
-            } else {
+            }
+            else {
                 resolve(true)
             }
         })
@@ -52,7 +54,8 @@ export const dirExists = async (dir: fs.PathLike) => {
     // 路径存在是目录
     if (isExists && isExists.isDirectory()) {
         return true
-    } else if (isExists) {
+    }
+    else if (isExists) {
         // 文件
         return false
     }
@@ -87,7 +90,7 @@ export const dirExists = async (dir: fs.PathLike) => {
  * 创建文件，先根据时间创建文件夹，在保存文件
  * @param ext 文件后缀，例如.png
  * @param data 存储的Buffer数据或是字符串
- * @param {boolean} [isHost=false]   主机地址，最后返回的地址是否需要拼接上主机地址 例如： http://localhost:3000/upload/2023/01/1692946999503sy45g8.txt
+ * @param {boolean} [isHost]   主机地址，最后返回的地址是否需要拼接上主机地址 例如： http://localhost:3000/upload/2023/01/1692946999503sy45g8.txt
  * @returns string|false    保存成功时返回路径地址
  * @example
  * ```js
@@ -141,7 +144,8 @@ export const createFile = async (ext: string, data: NodeJS.ArrayBufferView | str
         const backUrl = isHost ? `${HOST}${returnUrl}` : returnUrl
 
         return backUrl
-    } catch (error) {
+    }
+    catch (error) {
         console.error('文件写入失败:', error)
         return false
     }

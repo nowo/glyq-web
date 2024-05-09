@@ -1,10 +1,59 @@
+<script lang="ts" setup>
+const { $lang } = useNuxtApp()
+const { activeMenu, menuList } = useMenuState()
+
+const systemInfo = await useSystemState().getSystemInfo()
+
+const sideMenu = computed(() => {
+    if (activeMenu.value?.children?.length) {
+        return activeMenu.value?.children
+    }
+    else {
+        return menuList.value.filter(item => !['/', '', null].includes(item.href))
+    }
+})
+
+const id = useRouteQuery('id')
+
+// 设置高亮菜单样式
+const setMenuActiveClass = (row: IMenuListResponse) => {
+    if (activeMenu.value?.children?.length) {
+        if (Number(id.value) === row.id) {
+            return 'active'
+        }
+        else {
+            return ''
+        }
+    }
+    else if (row.id === activeMenu.value?.id) {
+        return 'active'
+    }
+    return ''
+}
+
+// 设置链接地址
+const setMenuLink = (row: IMenuListResponse) => {
+    if (activeMenu.value?.children?.length) {
+        return `${activeMenu.value.href}?id=${row.id}`
+    }
+    else {
+        return row.href
+    }
+}
+</script>
+
 <template>
     <section class="py30px">
         <div class="container">
             <el-row :gutter="30">
-                <el-col :xs="4" :sm="4" :md="5" :lg="6" :xl="6">
+                <el-col :xs="4"
+                        :sm="4"
+                        :md="5"
+                        :lg="6"
+                        :xl="6"
+                >
                     <div class="side-item">
-                        <h3 class="co-main-bg-color p15px text-center text-20px font-bold c-white">
+                        <h3 class="co-main-bg-color p15px text-center text-20px c-white font-bold">
                             <ClientOnly>
                                 {{ $lang(activeMenu?.title, activeMenu?.title_en) }}
                             </ClientOnly>
@@ -12,8 +61,12 @@
                         <div class="side-bor">
                             <ClientOnly>
                                 <ul class="side-ul">
-                                    <li v-for="item in sideMenu" :key="item.id">
-                                        <NuxtLinkLocale :to="setMenuLink(item)" :class="setMenuActiveClass(item)">
+                                    <li v-for="item in sideMenu"
+                                        :key="item.id"
+                                    >
+                                        <NuxtLinkLocale :to="setMenuLink(item)"
+                                                        :class="setMenuActiveClass(item)"
+                                        >
                                             {{ $lang(item.title, item.title_en) }}
                                         </NuxtLinkLocale>
                                     </li>
@@ -22,13 +75,15 @@
                         </div>
                     </div>
                     <div class="side-item mt20px">
-                        <h3 class="co-main-bg-color px15px py10px text-14px font-bold c-white">
+                        <h3 class="co-main-bg-color px15px py10px text-14px c-white font-bold">
                             <!-- {{ $t('contactName') }} -->
                             {{ $lang('联系我们', 'Contact us') }}
                         </h3>
                         <div class="side-bor">
                             <div class="b-1px b-#ddd b-solid">
-                                <img src="~/assets/images/custom-s.jpg" alt="">
+                                <img src="~/assets/images/custom-s.jpg"
+                                     alt=""
+                                >
                             </div>
                             <ul>
                                 <li>
@@ -46,8 +101,13 @@
                         </div>
                     </div>
                 </el-col>
-                <el-col :xs="20" :sm="20" :md="19" :lg="18" :xl="18">
-                    <div class="co-main-bg-color flex items-center px15px py10px text-14px font-bold c-white">
+                <el-col :xs="20"
+                        :sm="20"
+                        :md="19"
+                        :lg="18"
+                        :xl="18"
+                >
+                    <div class="co-main-bg-color flex items-center px15px py10px text-14px c-white font-bold">
                         <!-- {{ $t('site') }} -->
                         {{ $lang('当前位置', 'Location') }}：
                         <ClientOnly>
@@ -74,46 +134,6 @@
         </div>
     </section>
 </template>
-
-<script lang="ts" setup>
-const { $lang } = useNuxtApp()
-const { activeMenu, menuList } = useMenuState()
-
-const systemInfo = await useSystemState().getSystemInfo()
-
-const sideMenu = computed(() => {
-    if (activeMenu.value?.children?.length) {
-        return activeMenu.value?.children
-    } else {
-        return menuList.value.filter(item => !['/', '', null].includes(item.href))
-    }
-})
-
-const id = useRouteQuery('id')
-
-// 设置高亮菜单样式
-const setMenuActiveClass = (row: IMenuListResponse) => {
-    if (activeMenu.value?.children?.length) {
-        if (Number(id.value) === row.id) {
-            return 'active'
-        } else {
-            return ''
-        }
-    } else if (row.id === activeMenu.value?.id) {
-        return 'active'
-    }
-    return ''
-}
-
-// 设置链接地址
-const setMenuLink = (row: IMenuListResponse) => {
-    if (activeMenu.value?.children?.length) {
-        return `${activeMenu.value.href}?id=${row.id}`
-    } else {
-        return row.href
-    }
-}
-</script>
 
 <style lang="scss" scoped>
 .side-bor {

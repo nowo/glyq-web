@@ -1,23 +1,5 @@
-<template>
-    <el-dropdown>
-        <span class="co-main-color flex items-center">
-            <!-- {{ localeProperties.name }}
-            <i class="i-ep-arrow-down" /> -->
-            <i class="i-carbon-language text-28px" />
-        </span>
-        <template #dropdown>
-            <el-dropdown-menu>
-                <el-dropdown-item v-for="item in (locales as LocaleObject[])" :key="item.code"
-                    :class="{ on: localeProperties.code === item.code }" @click="changeLanguage(item.code)">
-                    {{ item.name }}
-                </el-dropdown-item>
-            </el-dropdown-menu>
-        </template>
-    </el-dropdown>
-</template>
-
 <script lang="ts" setup>
-import type { LocaleObject } from '@nuxtjs/i18n/dist/runtime/composables'
+import type { LocaleObject } from '@nuxtjs/i18n'
 
 // import BaseFooter from './components/BaseFooter.vue'
 // import BaseHeader from './components/BaseHeader.vue'
@@ -42,6 +24,25 @@ const changeLanguage = async (code: string) => {
     navigateTo(n)
 }
 </script>
+
+<template>
+    <el-dropdown>
+        <span class="co-main-color flex items-center">
+            <!-- {{ localeProperties.name }}
+            <i class="i-ep-arrow-down" /> -->
+            <i class="i-carbon-language text-28px" />
+        </span>
+        <template #dropdown>
+            <el-dropdown-menu>
+                <el-dropdown-item v-for="item in (locales as LocaleObject[])" :key="item.code"
+                                  :class="{ on: localeProperties.code === item.code }" @click="changeLanguage(item.code)"
+                >
+                    {{ item.name }}
+                </el-dropdown-item>
+            </el-dropdown-menu>
+        </template>
+    </el-dropdown>
+</template>
 
 <style lang="scss" scoped>
 .on {

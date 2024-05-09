@@ -1,9 +1,23 @@
+<script lang="ts" setup>
+const { $lang } = useNuxtApp()
+const systemInfo = await useSystemState().getSystemInfo()
+// console.log(dat)
+
+const menuList = await useMenuState().getMenuList()
+// console.log("🚀 ~ file: header.vue:21 ~ menuList:", menuList)
+</script>
+
 <template>
     <section>
         <div class="header-top py10px">
             <div class="flex items-center justify-between container">
-                <NuxtLinkLocale to="/" class="logo">
-                    <img :src="systemInfo?.logo" class="max-h75px" alt="">
+                <NuxtLinkLocale to="/"
+                                class="logo"
+                >
+                    <img :src="systemInfo?.logo"
+                         class="max-h75px"
+                         alt=""
+                    >
                 </NuxtLinkLocale>
                 <div class="flex items-center">
                     <div class="phone flex items-center">
@@ -22,8 +36,13 @@
         <div class="header-menu">
             <div class="container">
                 <ul class="header-menu-ul flex">
-                    <li v-for="item in menuList" :key="item.id" class="flex-1">
-                        <NuxtLinkLocale :to="item.href" class="header-link">
+                    <li v-for="item in menuList"
+                        :key="item.id"
+                        class="flex-1"
+                    >
+                        <NuxtLinkLocale :to="item.href"
+                                        class="header-link"
+                        >
                             {{ $lang(item.title, item.title_en) }}
                         </NuxtLinkLocale>
                     </li>
@@ -32,15 +51,6 @@
         </div>
     </section>
 </template>
-
-<script lang="ts" setup>
-const { $lang } = useNuxtApp()
-const systemInfo = await useSystemState().getSystemInfo()
-// console.log(dat)
-
-const menuList = await useMenuState().getMenuList()
-// console.log("🚀 ~ file: header.vue:21 ~ menuList:", menuList)
-</script>
 
 <style lang="scss" scoped>
 .header-menu {

@@ -1,3 +1,22 @@
+<script lang="ts" setup>
+const { $lang } = useNuxtApp()
+
+// const data = ref<IIndexResponse | null>()
+// useCustomFetch<IIndexResponse>('/api/page/index').then((res) => {
+//     data.value = res.data.value
+// })
+
+const { data } = await useCustomFetch<IIndexResponse>('/api/page/index')
+
+// console.log('🚀 ~ file: HomeMain.vue:116 ~ data:', data)
+
+const { data: companyInfo } = await useCustomFetch<IAboutInfoResponse>('/api/page/about', {
+    params: {
+        type: 1,
+    },
+})
+</script>
+
 <template>
     <section class="sec-index">
         <div class="py60px">
@@ -8,8 +27,9 @@
                 <div class="swp-box">
                     <!-- :creative-effect="effect" effect="creative" -->
                     <Swiper :modules="[SwiperAutoplay, SwiperEffectCreative, SwiperNavigation]" :slides-per-view="4"
-                        :space-between="25" :autoplay="{ delay: 5000, disableOnInteraction: true }"
-                        :navigation="{ nextEl: '.swp-next', prevEl: '.swp-prev' }">
+                            :space-between="25" :autoplay="{ delay: 5000, disableOnInteraction: true }"
+                            :navigation="{ nextEl: '.swp-next', prevEl: '.swp-prev' }"
+                    >
                         <SwiperSlide v-for="(item, idx) in data?.recommend" :key="idx">
                             <NuxtLink :to="`/goods/${item.id}`" class="banner-link">
                                 <img :src="item.img" :alt="item.title">
@@ -28,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <div class="sec-item1 co-main-bg-color py60px c-#fff">
+        <div class="co-main-bg-color sec-item1 py60px c-#fff">
             <div class="container">
                 <h3 class="mb30px text-center text-24px">
                     <span class="tle-line">{{ $lang('产品展示', 'PRODUCT DISPLAY') }}</span>
@@ -73,7 +93,8 @@
                 </h3>
                 <el-row class="mien-list">
                     <el-col v-for="(item, index) in data?.mienList" :key="item.id" :span="12" class="flex"
-                        :class="index > 1 ? 'n1' : ''">
+                            :class="index > 1 ? 'n1' : ''"
+                    >
                         <div class="mien-img w50%">
                             <co-image :src="item.img" class="w100% pb85% block!" />
                         </div>
@@ -143,25 +164,6 @@
         </div>
     </section>
 </template>
-
-<script lang="ts" setup>
-const { $lang } = useNuxtApp()
-
-// const data = ref<IIndexResponse | null>()
-// useCustomFetch<IIndexResponse>('/api/page/index').then((res) => {
-//     data.value = res.data.value
-// })
-
-const { data } = await useCustomFetch<IIndexResponse>('/api/page/index')
-
-// console.log('🚀 ~ file: HomeMain.vue:116 ~ data:', data)
-
-const { data: companyInfo } = await useCustomFetch<IAboutInfoResponse>('/api/page/about', {
-    params: {
-        type: 1,
-    },
-})
-</script>
 
 <style lang="scss" scoped>
 .tle-line {

@@ -4,8 +4,6 @@
 
 [vitesse-nuxt3](https://github.com/antfu/vitesse-nuxt3) - 项目最初使用模板
 
-
-
 ## Features
 
 - [💚 Nuxt 3](https://nuxt.com/) - SSR, ESR, File-based routing, components auto importing, modules, etc.
@@ -30,7 +28,6 @@
 
 - 📲 [PWA](https://github.com/vite-pwa/nuxt) with offline support and auto update behavior.
 
-
 ## Plugins
 
 ### Nuxt Modules
@@ -44,4 +41,3 @@
 ## IDE
 
 We recommend using [VS Code](https://code.visualstudio.com/) with [Volar](https://github.com/johnsoncodehk/volar) to get the best experience (You might want to disable Vetur if you have it).
-

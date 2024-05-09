@@ -36,12 +36,10 @@ DATABASE_URL="mysql://USER:PASSWORD@HOST:PORT/DATABASE"
 npx prisma db pull
 ```
 
-
 #### 修改、创建模型,只要是对model有改动时，就要同步到数据库里，更新相应的表，同时typescript对应的类型也会更新
 ```bash
 npx prisma db push
 ```
-
 
 ## 四、 安装@prisma/client执行业务操作
 ```bash
@@ -57,16 +55,16 @@ import { PrismaClient } from '@prisma/client'
 let prisma: PrismaClient
 
 declare module 'h3' {
-  interface H3EventContext {
-    prisma: PrismaClient
-  }
+    interface H3EventContext {
+        prisma: PrismaClient
+    }
 }
 
 export default eventHandler((event) => {
-  if (!prisma) {
-    prisma = new PrismaClient()
-  }
-  event.context.prisma = prisma
+    if (!prisma) {
+        prisma = new PrismaClient()
+    }
+    event.context.prisma = prisma
 })
 ```
 
@@ -74,15 +72,12 @@ export default eventHandler((event) => {
 ```typescript
 // server/api/user.ts
 export default defineEventHandler(async (event) => {
-  // 获取用户表的所有用户
-  const res = await event.context.prisma.user.findMany()
-  // console.log(res)
-  return { code: 200, data: res }
+    // 获取用户表的所有用户
+    const res = await event.context.prisma.user.findMany()
+    // console.log(res)
+    return { code: 200, data: res }
 })
 ```
-
-
-
 
 <!-- npx prisma db pull -->
 
@@ -95,13 +90,13 @@ module.exports = {
     apps: [
         {
             name: 'nuxt-pro', // 设置PM2进程的名称
-            port: '8004',   // 项目运行的端口
+            port: '8004', // 项目运行的端口
             exec_mode: 'cluster',
             instances: 'max',
             script: './.output/server/index.mjs',
             env: {
                 // 数据库
-                DATABASE_URL: 'mysql://root:root@localhost:3306/nuxt-pro',  // 更改成实际的数据库
+                DATABASE_URL: 'mysql://root:root@localhost:3306/nuxt-pro', // 更改成实际的数据库
             },
         },
     ],

@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+
+</script>
+
 <template>
     <main class="main-box">
         <LayoutHomeHeader />
@@ -6,10 +10,6 @@
         <LayoutHomeFooter />
     </main>
 </template>
-
-<script lang="ts" setup>
-
-</script>
 
 <style lang="scss" scoped>
 .main-box {

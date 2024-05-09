@@ -1,5 +1,4 @@
 import type { Prisma } from '@prisma/client'
-import type { H3Event } from 'h3'
 import { ResponseMessage } from '~/config/message'
 
 // banner

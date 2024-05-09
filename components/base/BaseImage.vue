@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+
+</script>
+
 <template>
     <el-image v-bind="$attrs">
         <template #error>
@@ -7,10 +11,6 @@
         </template>
     </el-image>
 </template>
-
-<script lang="ts" setup>
-
-</script>
 
 <style lang="scss" scoped>
 .image-slot {

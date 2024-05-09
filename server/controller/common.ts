@@ -1,5 +1,5 @@
 import { extname } from 'node:path'
-import type { H3Event, MultiPartData } from 'h3'
+import type { MultiPartData } from 'h3'
 
 export const uploadFile = defineEventHandler(async (event) => {
     const dat = await getEventParams<{ file: MultiPartData }>(event)

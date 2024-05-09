@@ -1,7 +1,7 @@
 /**
  * waitUtil方法
  * @param ms 需要等待的时间，毫秒级
- * @returns
+ * @returns promise 返回一个Promise对象
  * @example
  * ```js
  * // 等待1秒后，再往后面运行
@@ -36,12 +36,12 @@ export const types = (o: any) => {
 /**
  * @description 时间戳转化为年 月 日 时 分 秒
  * @function formatTime(format,num)
- * @param {number|Date} [num = new Date().getTime()|new Date] 时间戳或者时间对象,默认使用当前时间戳, new Date().getTime(); 获取当前时间戳（毫秒）
- * @param {string} [format='YYYY-mm-dd HH:MM:SS'] 时间格式,不填时默认使用'YYYY-mm-dd HH:MM:SS'格式,更改只需替换中间连接符号就行'YYYY年mm月dd日 HH时MM分SS秒'
+ * @param {number|Date} [num] 时间戳或者时间对象,默认使用当前时间戳, new Date().getTime(); 获取当前时间戳（毫秒）
+ * @param {string} [format] 时间格式,不填时默认使用'YYYY-mm-dd HH:MM:SS'格式,更改只需替换中间连接符号就行'YYYY年mm月dd日 HH时MM分SS秒'
  * @example
     let timestamp = 1558580029950; //js一般获取的时间戳是13位，PHP一般是10位
     formatTime(timestamp,'YYYY-mm-dd HH:MM:SS')   // 2019-05-23 10:53:49
-*/
+ */
 export const formatTime = (num: number | string | Date = new Date().getTime(), format = '') => {
     format = format || 'YYYY-mm-dd HH:MM:SS' // 第一个参数不填时，使用默认格式
     let ret,
@@ -51,17 +51,21 @@ export const formatTime = (num: number | string | Date = new Date().getTime(), f
         // 处理时间戳，js一般获取的时间戳是13位，PHP一般是10位,根据实际情况做判断处理
         if (num.toString().length === 10) {
             date = new Date((num as number) * 1000)
-        } else {
+        }
+        else {
             date = new Date(num)
         }
-    } else if (types(num) === 'string') {
+    }
+    else if (types(num) === 'string') {
         if (!Number.isNaN(Number(num))) {
             num = Number(num)
         }
         date = new Date(num)
-    } else if (types(num) === 'date') {
+    }
+    else if (types(num) === 'date') {
         date = num as Date
-    } else {
+    }
+    else {
         return ''
     }
     if (types(date) !== 'date') return ''
@@ -88,8 +92,8 @@ export const formatTime = (num: number | string | Date = new Date().getTime(), f
 
 /**
  * @function 获取浏览器地址的参数，不传参数时，获取的是地址栏的地址，返回一个封装参数的json对象
- * @param {String} [name=''] 获取值的key,默认为空,为空时，函数返回json对象
- * @param {String} [url=window.location.href] 地址，默认为浏览器的url
+ * @param {string} [name] 获取值的key,默认为空,为空时，函数返回json对象
+ * @param {string} [url] 地址，默认为浏览器的url
  * @returns {string|object} name为空时，返回对象
  * @example
  * getUrlParams('aa', 'https://www.baidu.com?aa=101')       //101
@@ -118,9 +122,9 @@ export const getUrlParams = (name = '', url: string = window.location.href): str
 
 /**
  * @function  地址栏追加参数（更新参数值）,不刷新页面
- * @param {String} key 参数名
- * @param {String|Number} value 参数的值
- * @param {String} url 需要更新的页面地址 不更新页面将返回到初始页面。 不传递任何参数将使用默认url地址。
+ * @param {string} key 参数名
+ * @param {string | number} value 参数的值
+ * @param {string} url 需要更新的页面地址 不更新页面将返回到初始页面。 不传递任何参数将使用默认url地址。
  * @example
  * updateUrlParams('pp',123)  //地址栏会有?pp=123
  */
@@ -129,12 +133,14 @@ export const updateUrlParams = (key: string, value?: string | number, url?: stri
     let newUrl
     if (!value) {
         newUrl = _url
-    } else {
+    }
+    else {
         const re = new RegExp(`([?&])${key}=.*?(&|$)`, 'i')
         const separator = _url.includes('?') ? '&' : '?'
         if (_url.match(re)) {
             newUrl = _url.replace(re, `$1${key}=${value}$2`)
-        } else {
+        }
+        else {
             newUrl = `${_url + separator + key}=${value}`
         }
     }
@@ -155,7 +161,7 @@ export const updateUrlParams = (key: string, value?: string | number, url?: stri
  * @param {string}  str 为去要截取的字符串(类型为字符串)
  * @param {number}  start 为从第几位开始截取(不是下标)
  * @param {number}  [len] 截取的长度(不填从开始截取到最后)
- * @param {string}  [rep=''] 需要替换的字符（例如："*"）默认为空
+ * @param {string}  [rep] 需要替换的字符（例如："*"）默认为空
  * @example
  * ```js
  * // 手机号码隐藏中间4位
@@ -168,7 +174,8 @@ export const strCutReplace = (str: string, start: number, len: number, rep = '')
         let repLength = 0
         if (len) {
             repLength = (str.length - start) > len ? len : (str.length - start) // 到最后能够替换字符的个数
-        } else {
+        }
+        else {
             repLength = str.length - start
         }
 
@@ -180,17 +187,18 @@ export const strCutReplace = (str: string, start: number, len: number, rep = '')
         const repText = str.substring(start - 1, start - 1 + len) // 截取（start-1）对应截取的位置
         const endStr = str.replace(repText, repStr) // 替换
         return endStr
-    } else {
+    }
+    else {
         return str
     }
 }
 
 /**
  * 数组元素移动位置，不改变原有数组
- * @param arr 需要改变的数组
+ * @param list 需要改变的数组
  * @param nowIndex 需要移动项在当前数组里的下标
  * @param newIndex 移动到指定的位置（下标）
- * @returns
+ * @returns new array
  * @example
  * ```js
  * // 将数组中2的那一项移动到最前面
@@ -257,7 +265,8 @@ export const getFileType = function (fileName: string) {
         }
         const fileArr = fileName.split('.')
         suffix = fileArr[fileArr.length - 1]
-    } catch (err) {
+    }
+    catch (err) {
         suffix = ''
     }
     // fileName无后缀返回 false

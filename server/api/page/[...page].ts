@@ -1,4 +1,4 @@
-import { createRouter, defineEventHandler, useBase } from 'h3'
+import { createRouter, useBase } from 'h3'
 import { getAboutInfo, getBannerList, getIndexData, getMenuList, getNewsInfo, getProductInfo, getSystemInfo } from '~/server/controller/page'
 import { getNewsList } from '~/server/controller/news'
 import { getProductList } from '~/server/controller/product'

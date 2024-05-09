@@ -30,7 +30,8 @@ export const getCompanyInfo = async (event: H3Event) => {
                 copyright_en: res2.copyright,
             },
         }
-    } else {
+    }
+    else {
         return { msg: '获取数据有误' }
     }
 }
@@ -88,7 +89,8 @@ export const setCompanyInfo = async (event: H3Event) => {
             code: 200,
             msg: '设置成功',
         }
-    } else {
+    }
+    else {
         return { msg: '获取数据有误' }
     }
 }
