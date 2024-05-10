@@ -114,7 +114,8 @@ export const createFile = async (ext: string, data: NodeJS.ArrayBufferView | str
     const date = new Date()
 
     // 根据时间生成文件夹
-    const dateDir = date.toLocaleDateString() // 2023/01/02
+    // const dateDir = date.toLocaleDateString() // 2023/01/02
+    const dateDir = date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'numeric', day: 'numeric' }) // 2024/1/2    月份、日期不0补位
     const url = `${uploadDir}/${dateDir}` // 完整的路径地址
 
     // 线上是运行.output/server/index.mjs（开发也是一样）,所以需要向上找两层

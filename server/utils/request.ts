@@ -64,7 +64,8 @@ const { MD5 } = Crypto
  */
 export const setEncryptPassword = (password: string) => {
     const s = MD5(password).toString()
-    const s2 = MD5(s).toString()
+    // 取得前面8个字符在加密,拼接??
+    const s2 = MD5(`${s.substring(0, 8)}??`).toString()
     return s2
 }
 

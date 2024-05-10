@@ -11,7 +11,7 @@ export const setLoginSign = defineEventHandler(async (event) => {
     const param = await getEventParams<AdminLoginDataType>(event)
 
     if (!param?.account) return { msg: '请输入登录账号' }
-    if (!param.password) return { msg: '请输入登录密码' }
+    if (!param?.password) return { msg: '请输入登录密码' }
 
     const user = await event.context.prisma.admin.findUnique({
         where: {
@@ -83,7 +83,7 @@ export const setRegister = defineEventHandler(async (event) => {
         data: {
             username: param.username,
             account: param.account,
-            password: setEncryptPassword(param.password),
+            password: setEncryptPassword(param.password.trim()),
         },
     })
     console.log('user', user)
