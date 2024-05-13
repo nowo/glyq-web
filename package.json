@@ -22,8 +22,7 @@
         "crypto-js": "^4.2.0",
         "element-plus": "^2.7.2",
         "jsonwebtoken": "^9.0.2",
-        "nuxt-swiper": "^1.2.2",
-        "ws": "^8.17.0"
+        "nuxt-swiper": "^1.2.2"
     },
     "devDependencies": {
         "@antfu/eslint-config": "^2.16.3",

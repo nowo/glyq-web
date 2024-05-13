@@ -35,7 +35,6 @@ specifiers:
   prisma: ^5.13.0
   sass: ^1.77.0
   typescript: ^5.4.5
-  ws: ^8.17.0
 
 dependencies:
   '@prisma/client': 5.13.0_prisma@5.13.0
@@ -43,7 +42,6 @@ dependencies:
   element-plus: 2.7.2
   jsonwebtoken: 9.0.2
   nuxt-swiper: 1.2.2
-  ws: 8.17.0
 
 devDependencies:
   '@antfu/eslint-config': 2.16.3_im6dxqfxycpa4z3wrywu4gehg4
@@ -12375,6 +12373,7 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
+    dev: true
 
   /xml-name-validator/4.0.0:
     resolution: {integrity: sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw==}
