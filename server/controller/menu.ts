@@ -55,8 +55,7 @@ export const getMenuList = defineEventHandler(async (event) => {
 
     if (res1) {
         return { code: 200, data: { list: res1, total: res2 } }
-    }
-    else {
+    } else {
         return { code: 400, message: '查询失败' }
     }
 })
@@ -80,8 +79,7 @@ export const setMenuCreate = defineEventHandler(async (event) => {
 
     if (res) {
         return { code: 200, msg: '添加成功' }
-    }
-    else {
+    } else {
         return { msg: '网络错误' }
     }
 })
@@ -110,8 +108,7 @@ export const setMenuUpdate = defineEventHandler(async (event) => {
 
     if (res) {
         return { code: 200, msg: '修改成功' }
-    }
-    else {
+    } else {
         return { msg: '网络错误' }
     }
 })
@@ -137,8 +134,7 @@ export const setMenuDelete = defineEventHandler(async (event) => {
 
     if (res) {
         return { code: 200, msg: '删除成功' }
-    }
-    else {
+    } else {
         return { msg: '网络错误' }
     }
 })

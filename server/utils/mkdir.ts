@@ -20,8 +20,7 @@ export const getStat = (path: fs.PathLike): Promise<fs.Stats | false> => {
         fs.stat(path, (err, stats) => {
             if (err) {
                 resolve(false)
-            }
-            else {
+            } else {
                 resolve(stats)
             }
         })
@@ -37,8 +36,7 @@ export const mkdir = (dir: fs.PathLike): Promise<boolean> => {
         fs.mkdir(dir, (err) => {
             if (err) {
                 resolve(false)
-            }
-            else {
+            } else {
                 resolve(true)
             }
         })
@@ -54,8 +52,7 @@ export const dirExists = async (dir: fs.PathLike) => {
     // 路径存在是目录
     if (isExists && isExists.isDirectory()) {
         return true
-    }
-    else if (isExists) {
+    } else if (isExists) {
         // 文件
         return false
     }
@@ -145,8 +142,7 @@ export const createFile = async (ext: string, data: NodeJS.ArrayBufferView | str
         const backUrl = isHost ? `${HOST}${returnUrl}` : returnUrl
 
         return backUrl
-    }
-    catch (error) {
+    } catch (error) {
         console.error('文件写入失败:', error)
         return false
     }

@@ -16,11 +16,9 @@ definePageMeta({
     <LayoutContent>
         <div>
             <img :src="about?.img"
-                 alt=""
-            >
+                alt="">
             <div class="py10px"
-                 v-html="$lang(about?.content, about?.content_en)"
-            />
+                v-html="$lang(about?.content, about?.content_en)" />
         </div>
     </LayoutContent>
 </template>

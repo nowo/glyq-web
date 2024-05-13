@@ -37,8 +37,7 @@ const initTableData = async () => {
     if (data.value?.code === 200) {
         defData.listData = data.value.data.list
         defData.pagination.total = data.value.data.total
-    }
-    else {
+    } else {
         ElMessage.error(data.value?.msg)
     }
 }
@@ -68,24 +67,19 @@ initTableData()
     <div>
         <ClientOnly>
             <ul v-if="props.type === 1"
-                class="new-ul min-h250px"
-            >
+                class="new-ul min-h250px">
                 <li v-for="item in defData.listData"
                     :key="item.id"
-                    class="flex"
-                >
+                    class="flex">
                     <NuxtLinkLocale :to="setLinkPath(item)"
-                                    class="link"
-                    >
+                        class="link">
                         <co-image :src="item.img"
-                                  class="h100% w140px block!"
-                        />
+                            class="h100% w140px block!" />
                     </NuxtLinkLocale>
                     <div class="flex-1 pl20px">
                         <h3 class="text-truncate pb5px font-bold">
                             <NuxtLinkLocale :to="setLinkPath(item)"
-                                            class="link-a"
-                            >
+                                class="link-a">
                                 {{ $lang(item.title, item.title_en) }}
                             </NuxtLinkLocale>
                         </h3>
@@ -97,40 +91,34 @@ initTableData()
             </ul>
 
             <ul v-else
-                class="news-grid"
-            >
+                class="news-grid">
                 <li v-for="item in defData.listData"
-                    :key="item.id"
-                >
+                    :key="item.id">
                     <NuxtLinkLocale :to="setLinkPath(item)"
-                                    class="link"
-                    >
+                        class="link">
                         <co-image :src="item.img"
-                                  class="w100% b-1px b-#eee b-solid pb75% block!"
-                        />
+                            class="w100% b-1px b-#eee b-solid pb75% block!" />
                     </NuxtLinkLocale>
                     <h3 class="line-clamp-1 mt5px text-center font-bold">
                         <NuxtLinkLocale :to="setLinkPath(item)"
-                                        class="link-a"
-                        >
+                            class="link-a">
                             {{ $lang(item.title, item.title_en) }}
                         </NuxtLinkLocale>
                     </h3>
                 </li>
             </ul>
             <el-pagination v-if="defData.pagination.total"
-                           v-model:current-page="defData.pagination.page"
-                           v-model:page-size="defData.pagination.page_size"
-                           small
-                           :page-sizes="defData.pagination.page_sizes"
-                           :total="defData.pagination.total"
-                           :pager-count="5"
-                           background
-                           layout="total, prev, pager, next, jumper"
-                           class="mt15px justify-center"
-                           @size-change="onHandleSizeChange"
-                           @current-change="onHandleCurrentChange"
-            />
+                v-model:current-page="defData.pagination.page"
+                v-model:page-size="defData.pagination.page_size"
+                small
+                :page-sizes="defData.pagination.page_sizes"
+                :total="defData.pagination.total"
+                :pager-count="5"
+                background
+                layout="total, prev, pager, next, jumper"
+                class="mt15px justify-center"
+                @size-change="onHandleSizeChange"
+                @current-change="onHandleCurrentChange" />
         </ClientOnly>
     </div>
 </template>

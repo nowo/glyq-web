@@ -21,8 +21,7 @@ export const getSystemInfo = defineEventHandler(async (event) => {
             filing_en: res2.filing,
             copyright_en: res2.copyright,
         }
-    }
-    else {
+    } else {
         return null
     }
 })

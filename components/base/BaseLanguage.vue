@@ -34,9 +34,10 @@ const changeLanguage = async (code: string) => {
         </span>
         <template #dropdown>
             <el-dropdown-menu>
-                <el-dropdown-item v-for="item in (locales as LocaleObject[])" :key="item.code"
-                                  :class="{ on: localeProperties.code === item.code }" @click="changeLanguage(item.code)"
-                >
+                <el-dropdown-item v-for="item in (locales as LocaleObject[])"
+                    :key="item.code"
+                    :class="{ on: localeProperties.code === item.code }"
+                    @click="changeLanguage(item.code)">
                     {{ item.name }}
                 </el-dropdown-item>
             </el-dropdown-menu>

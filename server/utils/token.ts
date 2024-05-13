@@ -14,8 +14,7 @@ export const createToken = (data: any) => {
 export const verifyToken = (token: string) => {
     try {
         return jwt.verify(token, 'app.config.jwt.secret')
-    }
-    catch (error) {
+    } catch (error) {
         return false
     }
 }

@@ -29,8 +29,7 @@ export const getSystemInfo = defineEventHandler(async (event) => {
                 copyright_en: res2.copyright,
             },
         }
-    }
-    else {
+    } else {
         return { msg: '获取数据有误' }
     }
 })
@@ -91,8 +90,7 @@ export const setSystemInfo = defineEventHandler(async (event) => {
             code: 200,
             msg: '设置成功',
         }
-    }
-    else {
+    } else {
         return { msg: '获取数据有误' }
     }
 })

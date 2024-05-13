@@ -7,8 +7,7 @@ const systemInfo = await useSystemState().getSystemInfo()
 const sideMenu = computed(() => {
     if (activeMenu.value?.children?.length) {
         return activeMenu.value?.children
-    }
-    else {
+    } else {
         return menuList.value.filter(item => !['/', '', null].includes(item.href))
     }
 })
@@ -20,12 +19,10 @@ const setMenuActiveClass = (row: IMenuListResponse) => {
     if (activeMenu.value?.children?.length) {
         if (Number(id.value) === row.id) {
             return 'active'
-        }
-        else {
+        } else {
             return ''
         }
-    }
-    else if (row.id === activeMenu.value?.id) {
+    } else if (row.id === activeMenu.value?.id) {
         return 'active'
     }
     return ''
@@ -35,8 +32,7 @@ const setMenuActiveClass = (row: IMenuListResponse) => {
 const setMenuLink = (row: IMenuListResponse) => {
     if (activeMenu.value?.children?.length) {
         return `${activeMenu.value.href}?id=${row.id}`
-    }
-    else {
+    } else {
         return row.href
     }
 }
@@ -47,11 +43,10 @@ const setMenuLink = (row: IMenuListResponse) => {
         <div class="container">
             <el-row :gutter="30">
                 <el-col :xs="4"
-                        :sm="4"
-                        :md="5"
-                        :lg="6"
-                        :xl="6"
-                >
+                    :sm="4"
+                    :md="5"
+                    :lg="6"
+                    :xl="6">
                     <div class="side-item">
                         <h3 class="co-main-bg-color p15px text-center text-20px c-white font-bold">
                             <ClientOnly>
@@ -62,11 +57,9 @@ const setMenuLink = (row: IMenuListResponse) => {
                             <ClientOnly>
                                 <ul class="side-ul">
                                     <li v-for="item in sideMenu"
-                                        :key="item.id"
-                                    >
+                                        :key="item.id">
                                         <NuxtLinkLocale :to="setMenuLink(item)"
-                                                        :class="setMenuActiveClass(item)"
-                                        >
+                                            :class="setMenuActiveClass(item)">
                                             {{ $lang(item.title, item.title_en) }}
                                         </NuxtLinkLocale>
                                     </li>
@@ -82,8 +75,7 @@ const setMenuLink = (row: IMenuListResponse) => {
                         <div class="side-bor">
                             <div class="b-1px b-#ddd b-solid">
                                 <img src="~/assets/images/custom-s.jpg"
-                                     alt=""
-                                >
+                                    alt="">
                             </div>
                             <ul>
                                 <li>
@@ -102,11 +94,10 @@ const setMenuLink = (row: IMenuListResponse) => {
                     </div>
                 </el-col>
                 <el-col :xs="20"
-                        :sm="20"
-                        :md="19"
-                        :lg="18"
-                        :xl="18"
-                >
+                    :sm="20"
+                    :md="19"
+                    :lg="18"
+                    :xl="18">
                     <div class="co-main-bg-color flex items-center px15px py10px text-14px c-white font-bold">
                         <!-- {{ $t('site') }} -->
                         {{ $lang('当前位置', 'Location') }}：

@@ -7,8 +7,7 @@ definePageMeta({
 <template>
     <LayoutContent>
         <LayoutContentDetail :type="1"
-                             goods
-        />
+            goods />
     </LayoutContent>
 </template>
 

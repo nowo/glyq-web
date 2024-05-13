@@ -26,13 +26,17 @@ const { data: companyInfo } = await useCustomFetch<IAboutInfoResponse>('/api/pag
                 </h3>
                 <div class="swp-box">
                     <!-- :creative-effect="effect" effect="creative" -->
-                    <Swiper :modules="[SwiperAutoplay, SwiperEffectCreative, SwiperNavigation]" :slides-per-view="4"
-                            :space-between="25" :autoplay="{ delay: 5000, disableOnInteraction: true }"
-                            :navigation="{ nextEl: '.swp-next', prevEl: '.swp-prev' }"
-                    >
-                        <SwiperSlide v-for="(item, idx) in data?.recommend" :key="idx">
-                            <NuxtLink :to="`/goods/${item.id}`" class="banner-link">
-                                <img :src="item.img" :alt="item.title">
+                    <Swiper :modules="[SwiperAutoplay, SwiperEffectCreative, SwiperNavigation]"
+                        :slides-per-view="4"
+                        :space-between="25"
+                        :autoplay="{ delay: 5000, disableOnInteraction: true }"
+                        :navigation="{ nextEl: '.swp-next', prevEl: '.swp-prev' }">
+                        <SwiperSlide v-for="(item, idx) in data?.recommend"
+                            :key="idx">
+                            <NuxtLink :to="`/goods/${item.id}`"
+                                class="banner-link">
+                                <img :src="item.img"
+                                    :alt="item.title">
                                 <div class="cover">
                                     <span> {{ $lang('阅读更多', 'Read more') }}</span>
                                 </div>
@@ -55,27 +59,40 @@ const { data: companyInfo } = await useCustomFetch<IAboutInfoResponse>('/api/pag
                 </h3>
                 <!-- <div class="px15px"> -->
                 <el-row :gutter="30">
-                    <el-col :xs="4" :sm="4" :md="5" :lg="5" :xl="5">
+                    <el-col :xs="4"
+                        :sm="4"
+                        :md="5"
+                        :lg="5"
+                        :xl="5">
                         <dl class="goods-dl">
                             <dt class="co-main-color bg-#fff px10px py25px text-center text-20px">
                                 {{ $lang('全部产品', 'ALL PRODUCTS') }}
                             </dt>
-                            <dd v-for="item in data?.cate.cateList" :key="item.id">
+                            <dd v-for="item in data?.cate.cateList"
+                                :key="item.id">
                                 <NuxtLinkLocale :to="`/goods?id=${item.id}`">
                                     {{ $lang(item?.title, item?.title_en) }}
                                 </NuxtLinkLocale>
                             </dd>
                         </dl>
                     </el-col>
-                    <el-col :xs="20" :sm="20" :md="19" :lg="19" :xl="19">
+                    <el-col :xs="20"
+                        :sm="20"
+                        :md="19"
+                        :lg="19"
+                        :xl="19">
                         <!--  -->
                         <ul class="news-grid">
-                            <li v-for="item in data?.cate.goodsList" :key="item.id">
-                                <NuxtLinkLocale :to="`/goods/${item.id}`" class="link">
-                                    <co-image :src="item.img" class="w100% b-1px b-#eee b-solid pb85% block!" />
+                            <li v-for="item in data?.cate.goodsList"
+                                :key="item.id">
+                                <NuxtLinkLocale :to="`/goods/${item.id}`"
+                                    class="link">
+                                    <co-image :src="item.img"
+                                        class="w100% b-1px b-#eee b-solid pb85% block!" />
                                 </NuxtLinkLocale>
                                 <h3 class="line-clamp-1 mt5px text-center font-bold">
-                                    <NuxtLinkLocale :to="`/goods/${item.id}`" class="link-a">
+                                    <NuxtLinkLocale :to="`/goods/${item.id}`"
+                                        class="link-a">
                                         {{ $lang(item.title, item.title_en) }}
                                     </NuxtLinkLocale>
                                 </h3>
@@ -92,17 +109,21 @@ const { data: companyInfo } = await useCustomFetch<IAboutInfoResponse>('/api/pag
                     <span class="tle-line">{{ $lang('公司风采', 'COMPANY ELEGANCE') }}</span>
                 </h3>
                 <el-row class="mien-list">
-                    <el-col v-for="(item, index) in data?.mienList" :key="item.id" :span="12" class="flex"
-                            :class="index > 1 ? 'n1' : ''"
-                    >
+                    <el-col v-for="(item, index) in data?.mienList"
+                        :key="item.id"
+                        :span="12"
+                        class="flex"
+                        :class="index > 1 ? 'n1' : ''">
                         <div class="mien-img w50%">
-                            <co-image :src="item.img" class="w100% pb85% block!" />
+                            <co-image :src="item.img"
+                                class="w100% pb85% block!" />
                         </div>
                         <div class="mien-text w50%">
                             <h3 class="mb25px text-center text-28px c-#333">
                                 {{ $lang(item.title, item.title_en) }}
                             </h3>
-                            <NuxtLinkLocale :to="`/company/${item.id}`" class="link">
+                            <NuxtLinkLocale :to="`/company/${item.id}`"
+                                class="link">
                                 {{ $lang('了解更多+', 'Learn more +') }}
                             </NuxtLinkLocale>
                         </div>
@@ -118,12 +139,15 @@ const { data: companyInfo } = await useCustomFetch<IAboutInfoResponse>('/api/pag
                 <div class="mb30px flex items-center">
                     <div class="w50%">
                         <div class="com-left relative mb30px">
-                            <co-image :src="companyInfo?.img" class="com-translate w100% pb78% block!" />
+                            <co-image :src="companyInfo?.img"
+                                class="com-translate w100% pb78% block!" />
                         </div>
                     </div>
                     <div class="w50% px25px">
-                        <div class="com-cont pb10px" v-html="$lang(companyInfo?.content, companyInfo?.content_en)" />
-                        <NuxtLinkLocale to="/about" class="link">
+                        <div class="com-cont pb10px"
+                            v-html="$lang(companyInfo?.content, companyInfo?.content_en)" />
+                        <NuxtLinkLocale to="/about"
+                            class="link">
                             {{ $lang('查看更多+', 'Learn more +') }}
                         </NuxtLinkLocale>
                     </div>
@@ -136,10 +160,14 @@ const { data: companyInfo } = await useCustomFetch<IAboutInfoResponse>('/api/pag
                     <span class="tle-line">{{ $lang('新闻资讯', 'NEWS INFORMATION') }}</span>
                 </h3>
                 <ul class="news-list grid gap20px">
-                    <li v-for="(item) in data?.newsList" :key="item.id">
-                        <NuxtLinkLocale :to="`/news/${item.id}`" class="news-link flex p10px">
+                    <li v-for="(item) in data?.newsList"
+                        :key="item.id">
+                        <NuxtLinkLocale :to="`/news/${item.id}`"
+                            class="news-link flex p10px">
                             <div class="w130px">
-                                <co-image :src="item.img" fit="cover" class="w100% rounded-50% pb100% block!" />
+                                <co-image :src="item.img"
+                                    fit="cover"
+                                    class="w100% rounded-50% pb100% block!" />
                             </div>
                             <div class="w-[calc(100%-130px)] pl10px">
                                 <h3 class="mb10px mt5px text-16px c-#000">
@@ -156,7 +184,8 @@ const { data: companyInfo } = await useCustomFetch<IAboutInfoResponse>('/api/pag
                     </li>
                 </ul>
                 <div class="mt25px text-center">
-                    <NuxtLinkLocale to="/news" class="news-more">
+                    <NuxtLinkLocale to="/news"
+                        class="news-more">
                         {{ $lang('查看更多+', 'LEARN MORE +') }}
                     </NuxtLinkLocale>
                 </div>

@@ -35,8 +35,7 @@ const setLinkPath = (row: INewsResponse) => {
 
 <template>
     <div v-if="news"
-         class="news-box"
-    >
+        class="news-box">
         <h3 class="my15px text-center text-18px font-bold">
             {{ $lang(news?.title, news?.title_en) }}
         </h3>
@@ -53,13 +52,11 @@ const setLinkPath = (row: INewsResponse) => {
                 {{ $lang(news?.describe, news?.describe_en) }}
             </div> -->
         <div class="cont"
-             v-html="$lang(news?.content, news?.content_en)"
-        />
+            v-html="$lang(news?.content, news?.content_en)" />
 
         <div class="next-prev">
             <NuxtLinkLocale v-if="prevNews?.id"
-                            :to="setLinkPath(prevNews)"
-            >
+                :to="setLinkPath(prevNews)">
                 <!-- {{ $t('prev') }} -->
                 {{ $lang('上一个', 'Prev') }}： {{ $lang(prevNews?.title, prevNews?.title_en) }}
             </NuxtLinkLocale>
@@ -68,8 +65,7 @@ const setLinkPath = (row: INewsResponse) => {
                 {{ $lang('上一个', 'Prev') }}：{{ $lang('无', 'none') }}
             </span>
             <NuxtLinkLocale v-if="nextNews?.id"
-                            :to="setLinkPath(nextNews)"
-            >
+                :to="setLinkPath(nextNews)">
                 <!-- {{ $t('next') }} -->
                 {{ $lang('下一个', 'Next') }}： {{ $lang(nextNews?.title, nextNews?.title_en) }}
             </NuxtLinkLocale>

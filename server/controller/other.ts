@@ -62,8 +62,7 @@ export const setOtherUpdate = defineEventHandler(async (event) => {
 
     if (res) {
         return { code: 200, msg: '修改成功' }
-    }
-    else {
+    } else {
         return { msg: '网络错误' }
     }
 })

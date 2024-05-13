@@ -12,12 +12,10 @@ const menuList = await useMenuState().getMenuList()
         <div class="header-top py10px">
             <div class="flex items-center justify-between container">
                 <NuxtLinkLocale to="/"
-                                class="logo"
-                >
+                    class="logo">
                     <img :src="systemInfo?.logo"
-                         class="max-h75px"
-                         alt=""
-                    >
+                        class="max-h75px"
+                        alt="">
                 </NuxtLinkLocale>
                 <div class="flex items-center">
                     <div class="phone flex items-center">
@@ -38,11 +36,9 @@ const menuList = await useMenuState().getMenuList()
                 <ul class="header-menu-ul flex">
                     <li v-for="item in menuList"
                         :key="item.id"
-                        class="flex-1"
-                    >
+                        class="flex-1">
                         <NuxtLinkLocale :to="item.href"
-                                        class="header-link"
-                        >
+                            class="header-link">
                             {{ $lang(item.title, item.title_en) }}
                         </NuxtLinkLocale>
                     </li>

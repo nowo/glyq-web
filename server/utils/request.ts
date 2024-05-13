@@ -25,16 +25,13 @@ export const getEventParams = async <T = any>(event: H3Event) => {
         formData.forEach((item) => {
             if (item.type) {
                 param[item.name!] = item
-            }
-            else {
+            } else {
                 param[item.name!] = Buffer.from(item.data).toString() // eslint-disable-line node/prefer-global/buffer
             }
         })
-    }
-    else if (method === 'GET') {
+    } else if (method === 'GET') {
         param = getQuery(event) as unknown as T
-    }
-    else {
+    } else {
         param = await readBody<T>(event)
     }
 
@@ -112,14 +109,15 @@ export const useVerifySign = async (event: H3Event) => {
 
     const sign = arr[0]
     const time = arr[1]
+    // 判断时间戳是否在2分钟内
+    if (new Date().getTime() - Number(time) > 3600 * 2) return undefined
 
     const config = useRuntimeConfig()
     const signs = setSignRule(config.public.secret, time)
 
     if (signs === sign) {
         return { sign, time }
-    }
-    else {
+    } else {
         return undefined
     }
 }

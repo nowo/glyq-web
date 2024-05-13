@@ -10,8 +10,7 @@ const iconWid = computed(() => {
 
 <template>
     <el-image class="co-image"
-              v-bind="$attrs"
-    >
+        v-bind="$attrs">
         <template #error>
             <div class="co-image-error">
                 <i class="i-ep-picture" />

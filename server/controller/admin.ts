@@ -24,8 +24,7 @@ export const setLoginSign = defineEventHandler(async (event) => {
 
     if (!user) {
         return { msg: '用户不存在' }
-    }
-    else if (user.password === setEncryptPassword(param.password)) {
+    } else if (user.password === setEncryptPassword(param.password)) {
         const token = createToken(user)
         return {
             code: 200,
@@ -36,8 +35,7 @@ export const setLoginSign = defineEventHandler(async (event) => {
                 token,
             },
         }
-    }
-    else {
+    } else {
         return { msg: '密码错误' }
     }
 })
@@ -90,8 +88,7 @@ export const setRegister = defineEventHandler(async (event) => {
 
     if (!user) {
         return { msg: '用户不存在' }
-    }
-    else {
+    } else {
         return { code: 200, data: user }
     }
 })
@@ -211,8 +208,7 @@ export const getAdminList = defineEventHandler(async (event) => {
     })
     if (res1) {
         return { code: 200, data: { list, total: res2 } }
-    }
-    else {
+    } else {
         return { code: 400, message: '查询失败' }
     }
 })
@@ -241,8 +237,7 @@ export const setAdminCreate = defineEventHandler(async (event) => {
 
     if (user) {
         return { code: 200, msg: '添加成功' }
-    }
-    else {
+    } else {
         return { msg: '网络错误' }
     }
 })
@@ -272,8 +267,7 @@ export const setAdminUpdate = defineEventHandler(async (event) => {
 
     if (user) {
         return { code: 200, msg: '修改成功' }
-    }
-    else {
+    } else {
         return { msg: '网络错误' }
     }
 })
@@ -298,8 +292,7 @@ export const setAdminDelete = defineEventHandler(async (event) => {
 
     if (user) {
         return { code: 200, msg: '删除成功' }
-    }
-    else {
+    } else {
         return { msg: '网络错误' }
     }
 })

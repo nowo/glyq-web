@@ -51,21 +51,17 @@ export const formatTime = (num: number | string | Date = new Date().getTime(), f
         // 处理时间戳，js一般获取的时间戳是13位，PHP一般是10位,根据实际情况做判断处理
         if (num.toString().length === 10) {
             date = new Date((num as number) * 1000)
-        }
-        else {
+        } else {
             date = new Date(num)
         }
-    }
-    else if (types(num) === 'string') {
+    } else if (types(num) === 'string') {
         if (!Number.isNaN(Number(num))) {
             num = Number(num)
         }
         date = new Date(num)
-    }
-    else if (types(num) === 'date') {
+    } else if (types(num) === 'date') {
         date = num as Date
-    }
-    else {
+    } else {
         return ''
     }
     if (types(date) !== 'date') return ''
@@ -133,14 +129,12 @@ export const updateUrlParams = (key: string, value?: string | number, url?: stri
     let newUrl
     if (!value) {
         newUrl = _url
-    }
-    else {
+    } else {
         const re = new RegExp(`([?&])${key}=.*?(&|$)`, 'i')
         const separator = _url.includes('?') ? '&' : '?'
         if (_url.match(re)) {
             newUrl = _url.replace(re, `$1${key}=${value}$2`)
-        }
-        else {
+        } else {
             newUrl = `${_url + separator + key}=${value}`
         }
     }
@@ -174,8 +168,7 @@ export const strCutReplace = (str: string, start: number, len: number, rep = '')
         let repLength = 0
         if (len) {
             repLength = (str.length - start) > len ? len : (str.length - start) // 到最后能够替换字符的个数
-        }
-        else {
+        } else {
             repLength = str.length - start
         }
 
@@ -187,8 +180,7 @@ export const strCutReplace = (str: string, start: number, len: number, rep = '')
         const repText = str.substring(start - 1, start - 1 + len) // 截取（start-1）对应截取的位置
         const endStr = str.replace(repText, repStr) // 替换
         return endStr
-    }
-    else {
+    } else {
         return str
     }
 }
@@ -265,8 +257,7 @@ export const getFileType = function (fileName: string) {
         }
         const fileArr = fileName.split('.')
         suffix = fileArr[fileArr.length - 1]
-    }
-    catch (err) {
+    } catch (err) {
         suffix = ''
     }
     // fileName无后缀返回 false

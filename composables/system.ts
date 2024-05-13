@@ -11,8 +11,7 @@ export const useSystemState = () => {
         // await wait(800)
         if (data.value) {
             system.value = data.value
-        }
-        else {
+        } else {
             ElMessage.error('网络错误')
         }
         return system
@@ -37,8 +36,7 @@ export const useMenuState = () => {
         // await wait(800)
         if (data.value) {
             menuList.value = data.value
-        }
-        else {
+        } else {
             ElMessage.error('网络错误')
         }
         return menuList
