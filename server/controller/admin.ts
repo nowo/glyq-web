@@ -21,6 +21,18 @@ export const setLoginSign = defineEventHandler(async (event) => {
         },
     })
     // console.log('user', user)
+    // // 密码变更
+    // if (user) {
+    //     await event.context.prisma.admin.update({
+    //         data: {
+    //             password: setEncryptPassword(param.password.trim()),
+    //         },
+    //         where: {
+    //             id: user.id,
+    //         },
+    //     })
+    //     return 'success'
+    // }
 
     if (!user) {
         return { msg: '用户不存在' }

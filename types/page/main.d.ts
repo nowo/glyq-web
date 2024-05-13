@@ -31,6 +31,7 @@ declare interface IMenuListResponse {
     sort: number | null
     title: string | null
     title_en: string | null
+    status: number
     createdAt: Date
     updatedAt: Date
     children?: IMenuListResponse[]

@@ -6,9 +6,9 @@ const systemInfo = await useSystemState().getSystemInfo()
 
 const sideMenu = computed(() => {
     if (activeMenu.value?.children?.length) {
-        return activeMenu.value?.children
+        return activeMenu.value?.children.filter(item => item.status)
     } else {
-        return menuList.value.filter(item => !['/', '', null].includes(item.href))
+        return menuList.value.filter(item => !['/', '', null].includes(item.href) && item.status)
     }
 })
 
@@ -42,11 +42,7 @@ const setMenuLink = (row: IMenuListResponse) => {
     <section class="py30px">
         <div class="container">
             <el-row :gutter="30">
-                <el-col :xs="4"
-                    :sm="4"
-                    :md="5"
-                    :lg="6"
-                    :xl="6">
+                <el-col :xs="4" :sm="4" :md="5" :lg="6" :xl="6">
                     <div class="side-item">
                         <h3 class="co-main-bg-color p15px text-center text-20px c-white font-bold">
                             <ClientOnly>
@@ -56,10 +52,8 @@ const setMenuLink = (row: IMenuListResponse) => {
                         <div class="side-bor">
                             <ClientOnly>
                                 <ul class="side-ul">
-                                    <li v-for="item in sideMenu"
-                                        :key="item.id">
-                                        <NuxtLinkLocale :to="setMenuLink(item)"
-                                            :class="setMenuActiveClass(item)">
+                                    <li v-for="item in sideMenu" :key="item.id">
+                                        <NuxtLinkLocale :to="setMenuLink(item)" :class="setMenuActiveClass(item)">
                                             {{ $lang(item.title, item.title_en) }}
                                         </NuxtLinkLocale>
                                     </li>
@@ -74,8 +68,7 @@ const setMenuLink = (row: IMenuListResponse) => {
                         </h3>
                         <div class="side-bor">
                             <div class="b-1px b-#ddd b-solid">
-                                <img src="~/assets/images/custom-s.jpg"
-                                    alt="">
+                                <img src="~/assets/images/custom-s.jpg" alt="">
                             </div>
                             <ul>
                                 <li>
@@ -87,17 +80,14 @@ const setMenuLink = (row: IMenuListResponse) => {
                                 </li>
                                 <li>
                                     <!-- {{ $t('addressName') }} -->
-                                    {{ $lang('总部地址', 'Address') }}：{{ $lang(systemInfo?.address, systemInfo?.address_en) }}
+                                    {{ $lang('总部地址', 'Address') }}：{{ $lang(systemInfo?.address, systemInfo?.address_en)
+                                    }}
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </el-col>
-                <el-col :xs="20"
-                    :sm="20"
-                    :md="19"
-                    :lg="18"
-                    :xl="18">
+                <el-col :xs="20" :sm="20" :md="19" :lg="18" :xl="18">
                     <div class="co-main-bg-color flex items-center px15px py10px text-14px c-white font-bold">
                         <!-- {{ $t('site') }} -->
                         {{ $lang('当前位置', 'Location') }}：

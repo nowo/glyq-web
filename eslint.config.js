@@ -42,6 +42,7 @@ export default antfu(
         // Remember to specify the file glob here, otherwise it might cause the vue plugin to handle non-vue files
         files: ['**/*.vue'],
         rules: {
+            'vue/max-attributes-per-line': 'off',
             'vue/multi-word-component-names': 'off',
             'vue/first-attribute-linebreak': [
                 'warn',

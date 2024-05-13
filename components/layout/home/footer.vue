@@ -24,15 +24,14 @@ const { data: links } = await useCustomFetch<ISlideListResponse[]>('/api/page/ge
             <div class="container">
                 <div class="mt10px flex justify-between">
                     <div class="flex">
-                        <NuxtLinkLocale to="/"
-                            class="mr20px">
-                            <img :src="systemInfo?.logo2"
-                                class="max-h150px max-w350px"
-                                alt="">
+                        <NuxtLinkLocale to="/" class="mr20px">
+                            <img :src="systemInfo?.logo2" class="max-h150px max-w350px" alt="">
                         </NuxtLinkLocale>
                         <div class="lh-28px">
                             <p>{{ $lang('联系电话', 'Telephone') }}：{{ systemInfo?.phone }}</p>
-                            <p>{{ $lang('联系地址', 'Address') }}：{{ $lang(systemInfo?.address, systemInfo?.address_en) }}</p>
+                            <p>
+                                {{ $lang('联系地址', 'Address') }}：{{ $lang(systemInfo?.address, systemInfo?.address_en) }}
+                            </p>
                         </div>
                     </div>
                     <!-- <div class="flex items-start text-46px">
@@ -47,30 +46,26 @@ const { data: links } = await useCustomFetch<ISlideListResponse[]>('/api/page/ge
                         </a>
                     </div> -->
                     <div class="text-center">
-                        <co-image :src="systemInfo?.qrCode"
-                            class="h90px w90px" />
-                        <p>关注我们</p>
+                        <co-image :src="systemInfo?.qrCode" class="h90px w90px" />
+                        <p>{{ $lang('关注我们', 'Follow us') }}</p>
                     </div>
                 </div>
                 <div class="pt15px text-13px">
                     {{ $lang('友情链接', 'Links') }}：
-                    <a v-for="item in links"
-                        :key="item.id"
-                        :href="item.href"
-                        target="_blank"
-                        class="mr5px">
+                    <a v-for="item in links" :key="item.id" :href="item.href" target="_blank" class="mr5px">
                         {{ $lang(item.title, item.title_en) }}
                     </a>
                 </div>
             </div>
         </div>
         <div class="footer-bot b-t b-t-#222 b-t-solid py15px">
-            <div class="c-#bbb container">
+            <!-- <div class="c-#bbb container">
                 <span class="mr8px">{{ $lang(systemInfo?.copyright, systemInfo?.copyright_en) }}</span>
                 <a href="https://beian.miit.gov.cn/"
                     target="_blank">{{ $lang(systemInfo?.filing, systemInfo?.filing_en)
                 }}</a>
-            </div>
+            </div> -->
+            <div class="c-#bbb container" v-html="$lang(systemInfo?.filing, systemInfo?.filing_en)" />
         </div>
     </section>
 </template>

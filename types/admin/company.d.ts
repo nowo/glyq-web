@@ -1,6 +1,7 @@
 // 系统信息
 declare interface ISystemEditParams {
-
+    company: string // 公司名称
+    company_en: string
     title: string // 公司名称
     address: string // 公司地址
 
