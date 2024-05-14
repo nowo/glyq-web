@@ -109,8 +109,8 @@ export const useVerifySign = async (event: H3Event) => {
 
     const sign = arr[0]
     const time = arr[1]
-    // 判断时间戳是否在2分钟内
-    if (new Date().getTime() - Number(time) > 3600 * 2) return undefined
+    // 判断时间戳是否在1.5分钟内
+    if (new Date().getTime() - Number(time) > 1.5 * 60 * 1000) return undefined
 
     const config = useRuntimeConfig()
     const signs = setSignRule(config.public.secret, time)
